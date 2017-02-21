@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+
+	<id>${project.parent.artifactId}</id>
+	<name>${project.parent.name}</name>
+	<version>${project.parent.version}</version>
+	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
+	<author>${project.parent.organization.name}</author>
+	<description>${project.parent.description}</description>
+	<require_version>${openMRSVersion}</require_version>
+
+	<require_modules>
+		<require_module version="${appframeworkVersion}">org.openmrs.module.appframework</require_module>
+		<require_module version="${calculationVersion}">org.openmrs.calculation</require_module>
+		<require_module version="${htmlformentryVersion}">org.openmrs.module.htmlformentry</require_module>
+		<require_module version="${idgenVersion}">org.openmrs.module.idgen</require_module>
+		<require_module version="${chaicoreVersion}">org.openmrs.module.chaicore</require_module>
+		<require_module version="${chaiuiVersion}">org.openmrs.module.chaiui</require_module>
+		<require_module version="${metadatasharingVersion}">org.openmrs.module.metadatasharing</require_module>
+		<require_module version="${reportingVersion}">org.openmrs.module.reporting</require_module>
+		<require_module version="${groovyVersion}">org.openmrs.module.groovy</require_module>
+		<require_module version="${uiframeworkVersion}">org.openmrs.module.uiframework</require_module>
+	</require_modules>
+
+	<activator>org.openmrs.module.chaiemr.EmrActivator</activator>
+
+	<advice>
+		<point>org.openmrs.api.EncounterService</point>
+		<class>${project.parent.groupId}.${project.parent.artifactId}.advice.EncounterServiceAdvice</class>
+		<point>org.openrs.module.chaiemr.*</point>
+		<class>${project.parent.groupId}.${project.parent.artifactId}.advice.TestAdvice</class>
+	</advice>
+
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	
+	<mappingFiles>
+	DrugOrderProcessed.hbm.xml
+	DrugObsProcessed.hbm.xml
+	DrugInfo.hbm.xml
+	</mappingFiles>
+
+</module>

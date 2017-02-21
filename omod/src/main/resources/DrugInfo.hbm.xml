@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.chaiemr.model">
+
+	<class name="DrugInfo" table="drug_info" batch-size="500">
+
+		<id name="drugInfoId" type="int" column="drug_info_id"
+			unsaved-value="0">
+				<generator class="native" />
+		</id>
+		<property name="drugName" column="drug_name" />
+		<property name="drugCode" column="drug_code" />
+		<property name="toxicity" column="toxicity" />
+		<property name="riskFactor" column="risk_factor" />
+		<property name="suggestedManagement" column="suggested_management" />
+		<property name="drugInteraction" column="drug_interaction" />
+		<property name="suggestedManagementInteraction" column="suggested_management_interaction" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,100 @@
+/**
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
+
+package org.openmrs.module.chaiemr.fragment.controller.program;
+
+import org.openmrs.Encounter;
+import org.openmrs.EncounterType;
+import org.openmrs.Patient;
+import org.openmrs.PatientProgram;
+import org.openmrs.Program;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.chaicore.form.FormDescriptor;
+import org.openmrs.module.chaicore.form.FormManager;
+import org.openmrs.module.chaicore.program.ProgramDescriptor;
+import org.openmrs.module.chaicore.program.ProgramManager;
+import org.openmrs.module.chaiemr.api.ChaiEmrService;
+import org.openmrs.module.chaiui.ChaiUiUtils;
+import org.openmrs.ui.framework.SimpleObject;
+import org.openmrs.ui.framework.UiUtils;
+import org.openmrs.ui.framework.annotation.FragmentParam;
+import org.openmrs.ui.framework.annotation.SpringBean;
+import org.openmrs.ui.framework.fragment.FragmentModel;
+import org.openmrs.ui.framework.page.PageRequest;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Patient program history fragment
+ */
+public class ProgramHistoryFragmentController {
+
+	public void controller(FragmentModel model,
+						   @FragmentParam("patient") Patient patient,
+						   @FragmentParam("program") Program program,
+						   @FragmentParam("showClinicalData") boolean showClinicalData,
+						   UiUtils ui,
+						   PageRequest pageRequest,
+						   @SpringBean ProgramManager programManager,
+						   @SpringBean FormManager formManager,
+						   @SpringBean ChaiUiUtils chaiUi) {
+
+		AppDescriptor currentApp = chaiUi.getCurrentApp(pageRequest);
+
+		ProgramDescriptor descriptor = programManager.getProgramDescriptor(program);
+		boolean patientIsEligible = programManager.isPatientEligibleFor(patient, program);
+
+		PatientProgram currentEnrollment = null;
+
+		// Gather all program enrollments for this patient and program
+		List<PatientProgram> enrollments = programManager.getPatientEnrollments(patient, program);
+		for (PatientProgram enrollment : enrollments) {
+			if (enrollment.getActive()) {
+				currentEnrollment = enrollment;
+			}
+		}
+
+		// Per-patient forms need simplified if there are any
+		List<SimpleObject> patientForms = new ArrayList<SimpleObject>();
+		if (descriptor.getPatientForms() != null) {
+			for (FormDescriptor form : formManager.getProgramFormsForPatient(currentApp, program, patient)) {
+				patientForms.add(ui.simplifyObject(form.getTarget()));
+			}
+		}
+		
+		String artEncounter="";
+		Set<EncounterType> encounterTypes = new HashSet<EncounterType>();
+		encounterTypes.add(Context.getEncounterService().getEncounterType("Initiate ART"));
+		encounterTypes.add(Context.getEncounterService().getEncounterType("Stop ART"));
+		Encounter encounter=Context.getService(ChaiEmrService.class).getLastEncounterByCreatedDateTime(patient,encounterTypes);
+		if(encounter!=null){
+		artEncounter=encounter.getEncounterType().getName();
+		}
+
+		model.addAttribute("patient", patient);
+		model.addAttribute("program", program);
+		model.addAttribute("defaultEnrollmentForm", descriptor.getDefaultEnrollmentForm());
+		model.addAttribute("defaultCompletionForm", descriptor.getDefaultCompletionForm());
+		model.addAttribute("patientForms", patientForms);
+		model.addAttribute("showClinicalData", showClinicalData);
+		model.addAttribute("patientIsEligible", patientIsEligible);
+		model.addAttribute("currentEnrollment", currentEnrollment);
+		model.addAttribute("enrollments", enrollments);
+		model.addAttribute("artEncounter", artEncounter);
+	}
+}

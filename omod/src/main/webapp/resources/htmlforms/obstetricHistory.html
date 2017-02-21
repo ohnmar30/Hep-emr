@@ -1,0 +1,609 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform> <!-- STYLE ======================
+	=================================-->
+
+<style>
+th, td, tr, table {
+	padding: 5px 10px 5px 5px;
+}
+
+table {
+	margin-left: 15px;
+}
+
+tbody {
+	padding-left: 0px !important;
+}
+
+input[type=text] {
+	width: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+select {
+	width: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+input[type=button], button {
+	padding: 5px 10px 5px 5px;
+	margin-right: 15px;
+	min-width: 110px;
+	font-weight: bold;
+	background-color: #d9d9d9 !important;
+}
+
+input[type=radio] {
+	padding: 0 0 0 0;
+	min-width: 20px;
+	font-weight: bold;
+	background-color: #d9d9d9 !important;
+}
+
+#tb {
+	width: 100%;
+}
+
+#tb2 {
+	width: 100%;
+}
+
+#tb tr {
+	width: 100%;
+}
+
+#tb2 tr {
+	width: 100%;
+}
+
+.col1 {
+	width: 8%;
+}
+
+.col2 {
+	width: 8%;
+}
+
+.col3 {
+	width: 21%;
+}
+
+.col4 {
+	width: 8%;
+}
+
+.col5 {
+	width: 15%;
+}
+
+.col6 {
+	width: 8%;
+}
+
+.col7 {
+	width: 8%;
+}
+
+.col8 {
+	width: 8%;
+}
+
+.col9 {
+	width: 8%;
+}
+
+.col10 {
+	width: 8%;
+}
+
+#tb, #tb2 {
+	table-layout: fixed;
+}
+
+#tb td, #tb2 td {
+	word-wrap: break-word;
+}
+
+#tb th, #tb2 th {
+	word-wrap: break-word;
+}
+input[type=button], button{
+	
+	background-color:Transparent;
+	}
+</style>
+
+
+<script type="text/javascript">
+		jq(document).ready(function () {
+			var pgender  = "<lookup expression="patient.gender" />";
+           
+            if (pgender == 'M' )
+			{
+			if (getValue('fPlanning1.value') == 1065) { 
+				jq('#fPlanningOption1 :input').prop('disabled', false);
+			}
+			else{
+				jq('#fPlanningOption1 :input').prop('disabled', true);
+			} 
+			jq("#fPlanning1 input:radio").change(function() {
+				if (getValue('fPlanning1.value') == 1065) { 
+					jq('#fPlanningOption1 :input').prop('disabled', false);
+				}
+				else{
+					jq('#fPlanningOption1 :input').prop('disabled', true);
+				} 
+			});
+			}
+			var addImageLink = "/"+OPENMRS_CONTEXT_PATH+"/ms/uiframework/resource/chaiui/images/glyphs/revisit.png";
+			var removeImageLink = "/"+OPENMRS_CONTEXT_PATH+"/ms/uiframework/resource/chaiui/images/glyphs/close.png";
+
+			// show fields with data 
+			fieldIndex = 24; 
+			j=1;
+			
+			document.getElementById(j+'-addImage').src = addImageLink;
+			document.getElementById(j+'-removeImage').src = removeImageLink;
+			
+			if(document.getElementById("w"+fieldIndex)!=null){
+				while(document.getElementById("w"+fieldIndex).value!="" &amp;&amp; j &lt; 5){
+					jQuery('#'+j+'-toggleContainer').show();   
+					fieldIndex=fieldIndex+18;
+
+					if(document.getElementById("w"+fieldIndex).value != '')
+					{
+				$j('#'+j+'-removeEntry').toggle(false);
+				$j('#'+j+'-addEntry').toggle(false);
+					}
+					j++;
+					document.getElementById(j+'-addImage').src = addImageLink;
+					document.getElementById(j+'-removeImage').src = removeImageLink;
+				}
+				
+			}
+			
+			//jQuery('#'+i+'-toggleContainer').show();
+			
+			$j('#1-removeEntry').remove();
+			$j('#4-addEntry').remove();
+			$j('#1-toggleContainer').show();
+			
+			
+			$j('button.addEntry').on("click", function(){
+				var correctedAddButtonId = parseFloat(this.id) + 1;      
+				var contentAddId = "#" + correctedAddButtonId + "-toggleContainer";
+				$j(contentAddId).toggle(true);      
+				$j('#' + this.id).toggle(false); 
+				$j('#' + parseFloat(this.id) + '-removeEntry').toggle(false);
+				if(correctedAddButtonId &lt; 4) {
+					document.getElementById(correctedAddButtonId+'-addImage').src = addImageLink;
+				}
+				if(correctedAddButtonId &gt; 1) {
+					document.getElementById(correctedAddButtonId+'-removeImage').src = removeImageLink;
+				}
+				
+				return false;});    
+			 
+			$j('button.removeEntry').on("click", function(){ 
+				var correctedRemoveButtonId = parseFloat(this.id) - 1;
+				var contentAddId = "#" + parseFloat(this.id) + "-toggleContainer";
+				$j(contentAddId).toggle(false);
+				$j( ':input:not(:button)', contentAddId).val([]);
+				$j('#' + correctedRemoveButtonId + '-addEntry').toggle(true);
+				$j('#' + correctedRemoveButtonId + '-removeEntry').toggle(true);
+				if(correctedRemoveButtonId &gt; 1) {
+					document.getElementById(correctedRemoveButtonId+'-removeImage').src = removeImageLink;
+				}
+				return false;
+				});
+			
+			
+				
+			
+				if (getValue('fPlanning.value') == 1065) {
+					jq('#fPlanningOption :input').prop('disabled', false);
+				}
+				else{
+					jq('#fPlanningOption :input').prop('disabled', true);
+				} 
+
+				jq("#fPlanning input:radio").change(function() {
+					if (getValue('fPlanning.value') == 1065) {
+						jq('#fPlanningOption :input').prop('disabled', false);
+					}
+					else{
+						jq('#fPlanningOption :input').prop('disabled', true);
+					} 
+				});
+				
+				
+				if (getValue('isPregnant.value') == 1065) {
+					jq('#ancNumber :input').prop('disabled', false);
+					jq('#gravida :input').prop('disabled', false);
+					jq('#parity :input').prop('disabled', false);
+					jq('#curDate :input').prop('disabled', false);
+					jq('#nextDate :input').prop('disabled', false);
+					jq('#mbddate :input').prop('disabled', false);
+					jq('#infantTable :input').prop('disabled', false);
+					jq('#2-toggleContainer :input').prop('disabled', false);
+					jq('#3-toggleContainer :input').prop('disabled', false);
+					jq('#4-toggleContainer :input').prop('disabled', false);
+					jq('#fPlanning :input').prop('disabled', true);
+					jq('#fPlanningOption :input').prop('disabled', true);
+				}
+				else {
+						jq('#ancNumber :input').prop('disabled', true);
+						jq('#gravida :input').prop('disabled', true);
+						jq('#parity :input').prop('disabled', true);
+						jq('#curDate :input').prop('disabled', true);
+						jq('#nextDate :input').prop('disabled', true);
+						jq('#mbddate :input').prop('disabled', true);
+						jq('#infantTable :input').prop('disabled', true);
+						jq('#2-toggleContainer :input').prop('disabled', true);
+						jq('#3-toggleContainer :input').prop('disabled', true);
+						jq('#4-toggleContainer :input').prop('disabled', true);
+						jq('#fPlanning :input').prop('disabled', false);
+						if (getValue('fPlanning.value') == 1065) {
+							jq('#fPlanningOption :input').prop('disabled', false);
+						}
+						else{
+							jq('#fPlanningOption :input').prop('disabled', true);
+						} 
+					}
+
+				
+				jq("#isPregnant input:radio").change(function() {
+					if (getValue('isPregnant.value') == 1065) {
+						jq('#ancNumber :input').prop('disabled', false);
+						jq('#gravida :input').prop('disabled', false);
+						jq('#parity :input').prop('disabled', false);
+						jq('#curDate :input').prop('disabled', false);
+						jq('#nextDate :input').prop('disabled', false);
+						jq('#mbddate :input').prop('disabled', false);
+						jq('#infantTable :input').prop('disabled', false);
+						jq('#2-toggleContainer :input').prop('disabled', false);
+						jq('#3-toggleContainer :input').prop('disabled', false);
+						jq('#4-toggleContainer :input').prop('disabled', false);
+						jq('#fPlanningOption :input').prop('disabled', true);
+						jq('#fPlanning :input').prop('disabled', true);
+					}
+					else {
+							jq('#ancNumber :input').prop('disabled', true);
+							jq('#gravida :input').prop('disabled', true);
+							jq('#parity :input').prop('disabled', true);
+							jq('#curDate :input').prop('disabled', true);
+							jq('#nextDate :input').prop('disabled', true);
+							jq('#mbddate :input').prop('disabled', true);
+							jq('#infantTable :input').prop('disabled', true);
+							jq('#2-toggleContainer :input').prop('disabled', true);
+							jq('#3-toggleContainer :input').prop('disabled', true);
+							jq('#4-toggleContainer :input').prop('disabled', true);
+							if (getValue('fPlanning.value') == 1065) {
+								jq('#fPlanningOption :input').prop('disabled', false);
+							}
+							else{
+								jq('#fPlanningOption :input').prop('disabled', true);
+							} 
+							jq('#fPlanning :input').prop('disabled', false);
+						}
+				});
+			
+			var months = {1:"Jan", 2:"Feb",3:"Mar", 4:"Apr", 5:"May",6:"Jun", 7:"Jul",8:"Aug", 9:"Sep",10:"Oct",11:"Nov",12:"Dec"};
+			var d = new Date(getValue('curDate.value'));
+			var today = new Date();
+			
+			if(document.getElementById("w12-display")!=null){
+				if(d!="Invalid Date"){
+					d.setDate(d.getDate() + 280);
+					document.getElementById("w12-display").value =  ("0" + d.getDate()).slice(-2) + "-" + months[d.getMonth()+1] + "-" + d.getFullYear();
+					document.getElementById("w12").value = d.getFullYear()  + "-" +  (d.getMonth()+1) 	+ "-" + d.getDate();
+				}
+				else{
+					document.getElementById("w12-display").value =  "";
+					document.getElementById("w12").value = "";
+				}
+				
+			}
+			
+			if(getValue('curDate.value')!=null){
+				var da = new Date(getValue('curDate.value'));
+				da.setDate(da.getDate() + 250);
+				var edd = new Date(da);
+				var today = new Date();
+				
+				if(edd-today &lt; 0){
+					
+				//	$('.ke-form-content').find('input:text').val('');
+					$(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+					$(':checkbox, :radio').prop('checked', false);
+					jq('#fPlanningOption :input').prop('disabled', true);
+					jq('#ifYesPregnancy :input').prop('disabled', true);
+					jq('#infantTable :input').prop('disabled', true);
+					
+				}
+			}
+			
+			
+		
+
+			jq("#curDate :input").change(function() {
+				var months = {1:"Jan", 2:"Feb",3:"Mar", 4:"Apr", 5:"May",6:"Jun", 7:"Jul",8:"Aug", 9:"Sep",10:"Oct",11:"Nov",12:"Dec"};
+				var d = new Date(getValue('curDate.value'));
+				var today = new Date();
+				if(d!=""){
+					jQuery('#mbdDate').html(Math.round(parseInt((today - d) / (1000 * 60 * 60 * 24)) /7));
+					d.setDate(d.getDate() + 280);
+					document.getElementById("w12-display").value =   ("0" + d.getDate()).slice(-2) + "-" + months[d.getMonth()+1] + "-" + d.getFullYear();
+					document.getElementById("w12").value = d.getFullYear()  + "-" +  (d.getMonth()+1) 	+ "-" + d.getDate();
+					
+				}
+				else{
+					document.getElementById("w12-display").value =  "";
+					document.getElementById("w12").value = "";
+				}
+			});
+			
+			
+			
+			
+			
+		});
+	</script> <script type="text/javascript">
+		function mbdCalculation() {
+			var display = '';
+			
+			var d = new Date(getValue('curDate.value'));
+			var today = new Date();
+			if(d!="Invalid Date"){
+				display=Math.round(parseInt((today - d) / (1000 * 60 * 60 * 24)) /7) + " week";
+			}
+			jQuery('#mbddate').html(display );
+		}
+
+		jQuery(function() {
+			if(getField('curDate.value')!=null){
+				getField('curDate.value').change(mbdCalculation);
+			}
+			
+			var da = new Date(getValue('curDate.value'));
+			da.setDate(da.getDate() + 250);
+			var edd = new Date(da);
+			var today = new Date();
+			if(edd-today &lt; 0){
+				jQuery('#mbddate').html('');
+			}
+			else{
+				mbdCalculation();	
+			}
+		});
+	</script> <!-- Encounter date, provider and location are not relevant for CE forms -->
+<div style="display: none">
+	<encounterDate id="encounter-date" showTime="true" />
+	<encounterLocation default="GlobalProperty:chaiemr.defaultLocation" />
+</div>
+
+<div class="ke-form-content">
+	<includeIf logicTest="GENDER = M">
+	<table style="background-color: #e8efdc" align="center"
+		cellspacing="10" width="80%" border="1">
+		<tr>
+			<td>
+				<div>
+					<table>
+						<tr>
+							<td >A. Family Planing :</td>
+							<td><obs conceptId="5271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+									labelText="  " style="radio" id="fPlanning1" /></td>
+						</tr>
+					</table>
+				</div>
+				<div id="ifNoPregnancy">
+					<table>
+						<tr>
+							<br />
+						</tr>
+						<tr>
+							<td>1. If Yes, Method</td>
+							<td><obs id="fPlanningOption1"
+									conceptId="374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+						</tr>
+					</table>
+				</div>
+
+			</td>
+		</tr>
+	</table>
+	</includeIf>
+	<includeIf logicTest="GENDER = F">
+	<table style="background-color: #e8efdc" align="center"
+		cellspacing="10" width="80%" border="1">
+		<tr>
+			<td>
+				<div>
+					<table>
+						<tr>
+							<td>A. Pregnancy :</td>
+							<td><obs conceptId="5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+									labelText="  " style="radio" id="isPregnant" /></td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<tr>
+						<td>
+							<table id="ifYesPregnancy">
+								<tr>
+									<td style="padding-left: 5px;" width="200" >a. If yes, L.M.P :</td>
+									<td style="padding-left: 10px;" colspan="2" >
+										<obs conceptId="1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="curDate" allowFutureDates="false"/>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 5px;">b. EDD :</td>
+									<td style="padding-left: 10px;" colspan="2" >
+										<obs conceptId="5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  allowFutureDates="true" id="nextDate"  />
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 5px;">c. MBD :</td>
+									<td style="padding-left: 10px;" colspan="2" >
+										<span id="mbddate"	class="value"></span>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 5px;">d. Pregnancy Outcome</td>
+									<td style="padding-left: 10px;" >
+										<obs conceptId="161033" id="pregancy_outcome" />
+									</td>
+									<td width="150">
+										<obs conceptId="160753" type="text" id="pregancy_outcome_date" />
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 5px;">e. Gravida :</td>
+									<td style="padding-left: 10px;" colspan="2" >
+										<obs conceptId="5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="gravida" />
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 5px;">f. Parity :</td>
+									<td style="padding-left: 10px;" colspan="2" >
+										<obs conceptId="1053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="parity" />
+									</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 5px;">g. ANC Number :</td>
+									<td style="padding-left: 10px;" colspan="2" >
+										<obs conceptId="161655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" size="20"	id="ancNumber" />
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td valign="top">
+							<table>
+								<tr>
+									<td>1. Family Planing :</td>
+									<td><obs conceptId="5271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+											labelText="  " style="radio" id="fPlanning" /></td>
+								</tr>
+								<tr>
+									<td>A. If Yes, Method</td>
+									<td><obs id="fPlanningOption"
+											conceptId="374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+
+				</div>
+			</td>
+		</tr>
+	</table>
+	</includeIf>
+	<includeIf logicTest="GENDER = F"> <br />
+	<div id="infantTable">
+		<table align="center" class="tb" cellspacing="1px" border="1"
+			width="100%">
+			<tr>
+				<th style="background-color: #c7d8a7;" colspan="10" align="center">Exposed
+					Infant Follow up</th>
+			</tr>
+			<tr>
+				<th class="col1" style="background-color: #696969; color: #ffffff;"><center>Exposed
+						- Infant Name/No.</center></th>
+				<th class="col2" style="background-color: #696969; color: #ffffff;"><center>
+						DOB<br />(dd/mm/yyyy)
+					</center></th>
+				<th class="col3" style="background-color: #696969; color: #ffffff;"><center>Infant
+						Feeding Practice At 3 month</center></th>
+				<th class="col4" style="background-color: #696969; color: #ffffff;"><center>CPT
+						Started Date</center></th>
+				<th class="col5" style="background-color: #696969; color: #ffffff;"><center>HIV
+						Test type</center></th>
+				<th class="col6" style="background-color: #696969; color: #ffffff;"><center>Result</center></th>
+				<th class="col7" style="background-color: #696969; color: #ffffff;"><center>Result
+						date</center></th>
+				<th class="col8" style="background-color: #696969; color: #ffffff;"><center>Final
+						status</center></th>
+				<th class="col9" style="background-color: #696969; color: #ffffff;"><center>(If
+						confirmed infected) Unique ID</center></th>
+				<th class="col10" style="background-color: #696969; color: #ffffff;"
+					id="add"><center></center></th>
+			</tr>
+			<repeat> <template> <obsgroup
+				groupingConceptId="161009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+			<div id="{n}-toggleContainer" style="display: none;">
+				<table id="tb2" border="1">
+
+					<tr style="border: 1px solid black">
+						<td class="col1" valign="top"><center>
+								<obs conceptId="be719294-8fe8-41eb-9218-ce2c9e7ef2ba" />
+							</center></td>
+						<td class="col2" valign="top"><center>
+								<obs conceptId="c8ee2d3a-f6d3-4811-b333-ddb6bdc9400b" />
+							</center></td>
+						<td class="col3" valign="top"><center>
+								<obs conceptId="1151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+							</center></td>
+						<td class="col4" valign="top"><center>
+								<obs conceptId="431adda7-582e-4822-83a6-25344f21fc7c" />
+							</center></td>
+						<td class="col5" valign="top"><center>
+								<obs conceptId="8b8083f4-7f55-4365-94d1-7ebd201cd1aa" />
+							</center></td>
+						<td class="col6" valign="top"><center>
+								<obs conceptId="159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+							</center></td>
+						<td class="col7" valign="top"><center>
+								<obs conceptId="160082AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+							</center></td>
+						<td class="col8" valign="top"><center>
+								<obs conceptId="2140e5aa-c199-441c-8b84-9386bc9fad1a" />
+							</center></td>
+						<td class="col9" valign="top"><center>
+								<obs conceptId="8cf2bda5-f2cc-48e3-a1b8-16ff76b7bed8" />
+							</center></td>
+						<td class="col10"><center>
+							<button id="{n}-addEntry" class="addEntry">
+									<img id="{n}-addImage" width="20" height="20" />
+								</button>
+								<button id="{n}-removeEntry" class="removeEntry">
+									<img id="{n}-removeImage" width="20" height="20" />
+								</button>
+							</center></td>
+					</tr>
+				</table>
+			</div>
+			</obsgroup> </template> <render n="1" concept=" " /> <render n="2" concept=" " /> <render
+				n="3" concept=" " /> <render n="4" concept=" " /> </repeat>
+		</table>
+
+	</div>
+	</includeIf>
+
+
+
+</div>
+
+
+<div class="ke-form-footer">
+	<submit />
+</div>
+
+</htmlform>

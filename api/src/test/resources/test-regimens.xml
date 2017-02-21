@@ -1,0 +1,30 @@
+<!--
+	Defines the standard Chai regimens
+-->
+<definitions xmlns="http://www.chaiemr.org/regimens" version="1">
+	<category code="category1" masterSetUuid="1085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+		<drugs>
+			<drug code="d4T" conceptUuid="84309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Stavudine -->
+			<drug code="AZT" conceptUuid="86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Zidovudine -->
+			<drug code="3TC" conceptUuid="78643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Lamivudine -->
+		</drugs>
+
+		<group code="group1" name="Group #1">
+			<regimen name="regimen1">
+				<component drugCode="AZT" dose="300" units="mg" frequency="OD" />
+				<component drugCode="3TC" dose="150" units="mg" frequency="BD" />
+			</regimen>
+			<regimen name="regimen2">
+				<component drugCode="d4T" dose="30" units="mg" frequency="OD" />
+				<component drugCode="3TC" dose="150" units="mg" frequency="BD" />
+			</regimen>
+		</group>
+
+		<group code="group2" name="Group #2">
+			<regimen name="regimen3">
+				<component drugCode="d4T" units="tab"  />
+				<component drugCode="3TC" units="tab" />
+			</regimen>
+		</group>
+	</category>
+</definitions>

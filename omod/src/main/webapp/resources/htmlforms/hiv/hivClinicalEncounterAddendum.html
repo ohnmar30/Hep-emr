@@ -1,0 +1,621 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+	<style type="text/css">
+		
+		td{
+			 
+			padding: 5px;
+		}
+			input[type=text]{
+			width: 300px;
+	}
+	   input[type=button], button{
+	
+	background-color:Transparent;
+	}
+		
+
+	</style>
+	
+	<script type="text/javascript">
+		jq(document).ready(function(){
+			
+			beforeSubmit.push(function() {
+			/*	 var appointDate = new Date(getValue('appointmentDate.value'));
+				 var encount=new Date(getValue('encounter-date.value'));
+				if (appointDate&lt;encount)
+				{
+					getField('appointmentDate.error').html('Appointment date can not before encounter date ').show();
+					return false;
+				}
+			*/	
+				fieldIndex = 8; 
+				j=1;
+				while(document.getElementById("w"+fieldIndex).value!="" &amp;&amp; j &lt; 11){
+					if(document.getElementById("w"+fieldIndex+"_hid")){
+						var id = document.getElementById("w"+fieldIndex+"_hid").value
+						if(id=="ERROR"){
+							alert("Kindly enter data in correct format");
+							return false;
+						}
+					}
+					j++;
+					fieldIndex=fieldIndex+2;
+				}
+
+				fieldIndex = 36; 
+				j=1;
+				if(document.getElementById("w"+fieldIndex)){
+					while(document.getElementById("w"+fieldIndex).value!=""){
+						if(document.getElementById("w"+fieldIndex+"_hid")){
+							var id = document.getElementById("w"+fieldIndex+"_hid").value
+							if(id=="ERROR"){
+								alert("Kindly enter data in correct format");
+								return false;
+							}
+						}
+						j++;
+						fieldIndex=fieldIndex+2;
+					}
+				}
+
+				return true;
+
+			});
+			if(document.getElementById("preArtPatient").value==1){
+				jq('#artSideEffectPresent :input').prop('disabled', false);
+				jq('#totalDoseCount :input').prop('disabled', false);
+				jq('#missedDoseCount :input').prop('disabled', false);
+			}
+			else{
+				jq('#artSideEffectPresent :input').prop('disabled', true);
+				jq('#artSideEffectList :input').prop('disabled', true);
+				jq('#totalDoseCount :input').prop('disabled', true);
+				jq('#missedDoseCount :input').prop('disabled', true);
+				jq('#reasonForNonAdherence :input').prop('disabled', true);
+				jq('#w100').prop('disabled', true);
+				
+			}
+			
+			
+			if (getValue('artSideEffectPresent.value') == 1065) {
+				jq('#artSideEffectList :input').prop('disabled', false);
+			}
+			else {
+				jq('#artSideEffectList :input').prop('disabled', true);
+				}
+		
+			jq("#artSideEffectPresent input:radio").change(function() {
+				if (getValue('artSideEffectPresent.value') == 1065) {
+					jq('#artSideEffectList :input').prop('disabled', false);
+				}
+				else {
+					jq('#artSideEffectList :input').prop('disabled', true);
+					}
+			});
+			
+			jq('#reasonForNonAdherence :input').prop('disabled', true);	
+			
+			if (getValue('temporaryReffered.value') == 1065) {
+				jq('#temporaryRefferedReason :input').prop('disabled', false);
+			}
+			else {
+				jq('#temporaryRefferedReason :input').prop('disabled', true);
+				}
+		
+			jq("#temporaryReffered input:radio").change(function() {
+				if (getValue('temporaryReffered.value') == 1065) {
+					jq('#temporaryRefferedReason :input').prop('disabled', false);
+				}
+				else {
+					jq('#temporaryRefferedReason :input').prop('disabled', true);
+					}
+			});
+			
+			if (getValue('admittedOption.value') == "1065") {
+				jq('#admittedId :input').prop('disabled', false);
+			}
+			else {
+				jq('#admittedId :input').prop('disabled', true);
+			}
+		
+			jq("#admittedOption input:radio").change(function() {
+				if (getValue('admittedOption.value') == "1065") {
+					jq('#admittedId :input').prop('disabled', false);
+				}
+				else {
+					jq('#admittedId :input').prop('disabled', true);
+				}
+			});
+
+			
+			jq("#w38,#w40,#w42,#w44,#w46,#w48,#w50,#w52,#w54,#w56,#w58,#w60,#w62,#w64,#w66,#w68,#w70,#w72,#w74,#w76").change(function() {
+					if(document.getElementById(this.id).value==121629 || document.getElementById(this.id).value==133069 || 
+							document.getElementById(this.id).value==119030){
+						alert("Please check AZT is included in the regimen.");
+					}
+					if(document.getElementById(this.id).value==137781)
+					{
+						alert("Please check ABC, EFV, NVP is included in the regimen.");
+					
+					}
+					if(document.getElementById(this.id).value==136162)
+					{
+						alert("Please check AZT, d4T, TDF is included in the regimen.");
+					
+					}
+					if(document.getElementById(this.id).value==113054 || document.getElementById(this.id).value==162937 || document.getElementById(this.id).value==163027){
+						alert("Please check EFV is included in the regimen.");
+					}
+					
+					if(document.getElementById(this.id).value==162940 || document.getElementById(this.id).value==162941 || document.getElementById(this.id).value==140520
+					|| document.getElementById(this.id).value==162939){
+						alert("Please check TDF is included in the regimen.");
+					}
+
+					if(document.getElementById(this.id).value==141623 || document.getElementById(this.id).value==163026 || document.getElementById(this.id).value==162938 
+					|| document.getElementById(this.id).value==163076 || document.getElementById(this.id).value==126626){
+						alert("Please check LPV/r is included in the regimen.");
+					}
+
+					
+					if(document.getElementById(this.id).value==159098){
+						alert("Please check EFV, LPV/r, NVP is included in the regimen.");
+					}
+
+
+					if(document.getElementById(this.id).value==135761){
+						alert("Please check AZT, d4T, LPV/r is included in the regimen.");
+					}
+
+		
+					if(document.getElementById(this.id).value==149607){
+						alert("Please check d4T, LPV/r is included in the regimen.");
+					}
+
+					if(document.getElementById(this.id).value==118983){
+						alert("Please check d4T is included in the regimen.");
+					}
+
+					if(document.getElementById(this.id).value==162955){
+						alert("Please check AZT, d4T, TDF is included in the regimen.");
+					}
+					if(document.getElementById(this.id).value==125886){
+						alert("Please check EFV, NVP is included in the regimen.");
+					}
+
+			});
+
+
+
+			beforeSubmit.push(function() {
+
+				return true;
+			});
+			
+			var addImageLink = "/"+OPENMRS_CONTEXT_PATH+"/ms/uiframework/resource/chaiui/images/glyphs/revisit.png";
+			var removeImageLink = "/"+OPENMRS_CONTEXT_PATH+"/ms/uiframework/resource/chaiui/images/glyphs/close.png";
+
+			// show fields with data 
+			fieldIndex = 8; 
+			j=1;
+			document.getElementById(j+'-addImage').src = addImageLink;
+			document.getElementById(j+'-removeImage').src = removeImageLink;
+			if(document.getElementById("w"+fieldIndex)!=null){
+			while(document.getElementById("w"+fieldIndex).value!="" &amp;&amp; j &lt; 11){
+				jQuery('#'+j+'-toggleContainer').show();   
+				fieldIndex=fieldIndex+2;
+				if(document.getElementById("w"+fieldIndex).value != '')
+				{
+			$j('#'+j+'-removeEntry').toggle(false);
+			$j('#'+j+'-addEntry').toggle(false);
+				}
+				j++;
+				document.getElementById(j+'-addImage').src = addImageLink;
+				document.getElementById(j+'-removeImage').src = removeImageLink;
+			}
+			}
+	
+			$j('#1-removeEntry').remove();
+			$j('#10-addEntry').remove();
+			$j('#1-toggleContainer').show();
+			
+			
+			$j('button.addEntry').on("click", function(){
+				var correctedAddButtonId = parseFloat(this.id) + 1;      
+				var contentAddId = "#" + correctedAddButtonId + "-toggleContainer";
+				$j(contentAddId).toggle(true);      
+				$j('#' + this.id).toggle(false); 
+				$j('#' + parseFloat(this.id) + '-removeEntry').toggle(false);
+				if(correctedAddButtonId &lt; 10) {
+					document.getElementById(correctedAddButtonId+'-addImage').src = addImageLink;
+				}
+				if(correctedAddButtonId &gt; 1) {
+					document.getElementById(correctedAddButtonId+'-removeImage').src = removeImageLink;
+				}
+				return false;});    
+			 
+			$j('button.removeEntry').on("click", function(){ 
+				var correctedRemoveButtonId = parseFloat(this.id) - 1;
+				var contentAddId = "#" + parseFloat(this.id) + "-toggleContainer";
+				$j(contentAddId).toggle(false);
+				$j( ':input:not(:button)', contentAddId).val([]);
+				$j('#' + correctedRemoveButtonId + '-addEntry').toggle(true);
+				$j('#' + correctedRemoveButtonId + '-removeEntry').toggle(true);
+				if(correctedRemoveButtonId &gt; 1) {
+					document.getElementById(correctedRemoveButtonId+'-removeImage').src = removeImageLink;
+				}
+				return false;
+				});
+			
+			
+			// show fields with data 
+			fieldIndex1 = 36; 
+			count=1;
+			document.getElementById(count+'-addImage1').src = addImageLink;
+			document.getElementById(count+'-removeImage1').src = removeImageLink;
+
+			if(document.getElementById("w"+fieldIndex1)==null){
+				hasPreviousData = 1;
+				fieldIndex1 = 80; 
+			}
+			if(document.getElementById("w"+fieldIndex1)!=null){
+			while(document.getElementById("w"+fieldIndex1).value!="" &amp;&amp; count &lt; 11){
+				jQuery('#'+count+'-toggleContainer1').show();   
+				fieldIndex1=fieldIndex1+2;
+				if(document.getElementById("w"+fieldIndex1).value != '')
+				{
+			$j('#'+count+'-removeEntry1').toggle(false);
+			$j('#'+count+'-addEntry1').toggle(false);
+				}
+				count++;
+				document.getElementById(count+'-addImage1').src = addImageLink;
+				document.getElementById(count+'-removeImage1').src = removeImageLink;
+			}
+			}
+			
+			
+			$j('#1-removeEntry1').remove();
+			$j('#10-addEntry1').remove();
+			$j('#1-toggleContainer1').show();
+			
+			
+			$j('button.addEntry1').on("click", function(){
+				var correctedAddButtonId = parseFloat(this.id) + 1;      
+				var contentAddId = "#" + correctedAddButtonId + "-toggleContainer1";
+				$j(contentAddId).toggle(true);      
+				$j('#' + this.id).toggle(false); 
+				$j('#' + parseFloat(this.id) + '-removeEntry1').toggle(false);
+				if(correctedAddButtonId &lt; 10) {
+					document.getElementById(correctedAddButtonId+'-addImage1').src = addImageLink;
+				}
+				if(correctedAddButtonId &gt; 1) {
+					document.getElementById(correctedAddButtonId+'-removeImage1').src = removeImageLink;
+				}
+				return false;});    
+			 
+			$j('button.removeEntry1').on("click", function(){ 
+				var correctedRemoveButtonId = parseFloat(this.id) - 1;
+				var contentAddId = "#" + parseFloat(this.id) + "-toggleContainer1";
+				$j(contentAddId).toggle(false);
+				$j( ':input:not(:button)', contentAddId).val([]);
+				$j('#' + correctedRemoveButtonId + '-addEntry1').toggle(true);
+				$j('#' + correctedRemoveButtonId + '-removeEntry1').toggle(true);
+				if(correctedRemoveButtonId &gt; 1) {
+					document.getElementById(correctedRemoveButtonId+'-removeImage1').src = removeImageLink;
+				}
+				return false;
+				});
+			
+			
+			// show fields with data 
+			fieldIndex2 = 58; 
+			count2=1;
+			document.getElementById(count2+'-addImage2').src = addImageLink;
+			document.getElementById(count2+'-removeImage2').src = removeImageLink;
+
+			hasPreviousData =0;
+			if(hasPreviousData==1){
+				fieldIndex2 = 38;
+			}
+			if(document.getElementById("w"+fieldIndex2)!=null){
+			while(document.getElementById("w"+fieldIndex2).value!="" &amp;&amp; count &lt; 11){
+				jQuery('#'+count2+'-toggleContainer2').show();   
+				fieldIndex2=fieldIndex2+2;
+				if(document.getElementById("w"+fieldIndex2).value != '')
+				{
+			$j('#'+count2+'-removeEntry2').toggle(false);
+			$j('#'+count2+'-addEntry2').toggle(false);
+				}
+				count2++;
+				document.getElementById(count2+'-addImage2').src = addImageLink;
+				document.getElementById(count2+'-removeImage2').src = removeImageLink;
+
+			}
+			}
+			$j('#1-removeEntry2').remove();
+			$j('#10-addEntry2').remove();
+			$j('#1-toggleContainer2').show();
+			
+			
+			$j('button.addEntry2').on("click", function(){
+				var correctedAddButtonId = parseFloat(this.id) + 1;      
+				var contentAddId = "#" + correctedAddButtonId + "-toggleContainer2";
+				$j(contentAddId).toggle(true);      
+				$j('#' + this.id).toggle(false); 
+				$j('#' + parseFloat(this.id) + '-removeEntry2').toggle(false);
+				if(correctedAddButtonId &lt; 10) {
+					document.getElementById(correctedAddButtonId+'-addImage2').src = addImageLink;
+				}
+				if(correctedAddButtonId &gt; 1) {
+					document.getElementById(correctedAddButtonId+'-removeImage2').src = removeImageLink;
+				}
+				return false;});    
+			 
+			$j('button.removeEntry2').on("click", function(){ 
+				var correctedRemoveButtonId = parseFloat(this.id) - 1;
+				var contentAddId = "#" + parseFloat(this.id) + "-toggleContainer2";
+				$j(contentAddId).toggle(false);
+				$j( ':input:not(:button)', contentAddId).val([]);
+				$j('#' + correctedRemoveButtonId + '-addEntry2').toggle(true);
+				$j('#' + correctedRemoveButtonId + '-removeEntry2').toggle(true);
+				if(correctedRemoveButtonId &gt; 1) {
+					document.getElementById(correctedRemoveButtonId+'-removeImage1').src = removeImageLink;
+				}
+				return false;
+				});
+			
+		});
+		
+		
+		function onWeightOrHeightChange() {
+			var display = '';
+			var doseCount = parseInt(getValue('missedDoseCount.value'));
+			var totalDoseCount = parseInt(getValue('totalDoseCount.value'));
+			
+				var count =  100-((doseCount * 100)/ (totalDoseCount));
+				if(isNaN(count)){
+					 setValue('calculated-adherence.value','0');
+				}
+				else{
+					if(count > 94){
+					  
+					
+				    setValue('calculated-adherence.value','&gt;95%');
+					
+					}
+					else if(count > 79){ 
+					setValue('calculated-adherence.value','80-95 %');
+					}
+					else{
+					setValue('calculated-adherence.value','&lt;80%');
+					}
+				}
+				
+				
+				if(count &lt; 95 ){
+					jq('#reasonForNonAdherence :input').prop('disabled', false);
+				}
+				else{
+					jq('#reasonForNonAdherence :input').prop('disabled', true);	
+				}
+		}
+		
+		jQuery(function() {
+			if(getValue('calculated-adherence.value')==''){
+				onWeightOrHeightChange();
+			}
+			getField('missedDoseCount.value').change(onWeightOrHeightChange);
+			getField('totalDoseCount.value').change(onWeightOrHeightChange);
+		});
+	
+	</script>
+
+	<div class="ke-form-header" style="select {   padding: 2px;}">
+		<table width="100%" style="background-color: #c7d8a7">
+			<tr>
+				<td>Date: <encounterDate id="encounter-date" showTime="true" /></td>
+				<td>Location: <encounterLocation default="GlobalProperty:chaiemr.defaultLocation" type="autocomplete" /></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="ke-form-content">
+		<fieldset>
+			<table style="background-color: #e8efdc;" width="80%" align="center">
+				<tr>
+					<td style="padding-left:10px;" valign="top">1. Chief complaint: </td>
+					<td>	
+						<table>
+							<repeat>
+								<template>
+										<tr  id="{n}-toggleContainer" style="display:none;">
+											<td><obs conceptId="5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="autocomplete" labelText=" "  /></td>
+											<td><button id="{n}-addEntry" class="addEntry"><img id="{n}-addImage" width="25" height="25" /></button><button id="{n}-removeEntry" class="removeEntry"><img id="{n}-removeImage" width="20" height="20" /></button>
+											</td>
+										</tr>
+								</template>
+								<render n="1" concept=" "/>
+								<render n="2" concept=" "/>
+								<render n="3" concept=" "/>
+								<render n="4" concept=" "/>
+								<render n="5" concept=" "/>
+								<render n="6" concept=" "/>
+								<render n="7" concept=" "/>
+								<render n="8" concept=" "/>
+								<render n="9" concept=" "/>
+								<render n="10" concept=" "/>
+							</repeat>
+						</table>
+					</td>		
+				</tr>
+				<tr>
+					<td style="padding-left:10px;" valign="top">2. History of present illness: </td>
+					<td>
+						<obs conceptId="1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rows="2" cols="100" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td style="padding-left:10px;" valign="top">3. General examination: </td>
+					<td>
+						<obs conceptId="1119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rows="2" cols="100" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td style="padding-left:10px;" valign="top">4. Systemic Examination: </td>
+					<td>
+						<obs conceptId="f6139afd-53ab-4e4b-9e44-8f1f564ce772" rows="2" cols="100" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td style="padding-left:10px;" valign="top">5. Note: </td>
+					<td>
+						<obs conceptId="162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rows="2" cols="100" />
+					</td>
+				</tr>
+				<tr>
+					<td style="padding-left:10px;" valign="top">6. Diagnosis: </td>
+					<td>	
+						<table>
+							<obsgroup groupingConceptId="50ea66b0-77a0-42a8-84f5-c7164c9e3373">
+								<repeat>
+									<template>
+										<tr  id="{n}-toggleContainer1" style="display:none;">
+											<td><obs conceptId="d8189970-d2a9-431d-864c-c8982d538dc9" style="autocomplete" type="autocomplete" labelText=" "  id="daig_value"/></td>
+											<td><button id="{n}-addEntry1" class="addEntry1"><img id="{n}-addImage1" width="25" height="25" /></button><button id="{n}-removeEntry1" class="removeEntry1"><img id="{n}-removeImage1" width="20" height="20" /></button>
+											</td>
+										</tr>
+									</template>
+									<render n="1" concept=" "/>
+									<render n="2" concept=" "/>
+									<render n="3" concept=" "/>
+									<render n="4" concept=" "/>
+									<render n="5" concept=" "/>
+									<render n="6" concept=" "/>
+									<render n="7" concept=" "/>
+									<render n="8" concept=" "/>
+									<render n="9" concept=" "/>
+									<render n="10" concept=" "/>
+								</repeat>
+							</obsgroup>
+						</table>
+					</td>		
+				</tr>
+				<tr>
+					<td style="padding-left:10px;">7. Side effects of ART ?</td>
+					<td><obs id="artSideEffectPresent" conceptId="159935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="radio" /></td>
+				</tr>
+				<tr>
+					<td style="padding-left:10px;" valign="top"> a. Side Effect's: </td>
+					<td valign="top">	
+						<div id="artSideEffectList">
+						<table>
+								<repeat>
+									<template>
+										<tr  id="{n}-toggleContainer2" style="display:none;">
+											<td valign="top"><obs conceptId="4b4e4b62-4e44-43f6-9c35-ca23861a153e" id="artSideEffectValue" /></td>
+											<td valign="top"><button id="{n}-addEntry2" class="addEntry2"><img id="{n}-addImage2" width="25" height="25" /></button><button id="{n}-removeEntry2" class="removeEntry2"><img id="{n}-removeImage2" width="20" height="20" /></button>
+											</td>
+										</tr>
+									</template>
+									<render n="1" concept=" "/>
+									<render n="2" concept=" "/>
+									<render n="3" concept=" "/>
+									<render n="4" concept=" "/>
+									<render n="5" concept=" "/>
+									<render n="6" concept=" "/>
+									<render n="7" concept=" "/>
+									<render n="8" concept=" "/>
+									<render n="9" concept=" "/>
+									<render n="10" concept=" "/>
+								</repeat>
+						</table>
+						</div>
+					</td>		
+				</tr>				
+				<tr>
+					<td style="padding-left:10px;">
+					  8. ART Adherence
+					</td>
+					<td></td>
+				</tr>
+				<tr>	
+					<td style="padding-left:28px;">Number of doses provided </td>
+					<td><obs conceptId="1196AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="totalDoseCount" /></td>
+				</tr>
+				<tr>	
+					<td style="padding-left:28px;">Number of doses missed </td>
+					<td><obs conceptId="05a061ba-2d76-4929-9788-afe650eaae7b" id="missedDoseCount" /></td>
+				</tr>
+				
+				<tr>	
+					<td style="padding-left:28px;">% of adherence to ART</td>
+					<td><obs id="calculated-adherence"  conceptId="360716f8-c50b-4bb7-bce8-edbe4aa9445c"/>
+					<br/> Reason for non-adherence : <obs id="reasonForNonAdherence" conceptId="160582AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+					</td>
+				</tr>
+<!-- 			<tr>	
+					<td style="padding-left:28px;">Taking doses at correct time in last 30 days?</td>
+					<td><obs conceptId="8a70de3b-5975-4c16-b1e7-e9a7a63329e2" style="radio"/></td>
+				</tr>
+				<tr>	
+					<td style="padding-left:28px;">Taking correct doses in last 30 days?</td>
+					<td><obs conceptId="9f401f60-2ac3-4d6c-bf8a-33885b99492a" style="radio"/></td>
+				</tr>
+ -->					
+				
+				<tr>	
+					<td style="padding-left:10px;">9. Temporary Referral</td>
+					<td><obs id="temporaryReffered" conceptId="5e05d243-e039-4f04-9988-18d5a499329e" style="radio"/></td>
+				</tr>
+				<tr>	
+					<td style="padding-left:28px;">Temporary Referral Reason</td>
+					<td><obs id="temporaryRefferedReason" conceptId="c648f69b-7065-4255-9af2-6076348c87dc"/></td>
+				</tr>
+				<tr>	
+					<td style="padding-left:10px;">10. Admitted</td>
+					<td><obs conceptId="c17ed847-31e8-4c6a-a3b6-e2d6493870ff" style="radio" id="admittedOption" /></td>
+				</tr>
+				<tr>
+					<td></td>	
+					<td>
+						<div id="admittedId">
+						<table>
+							<tr>
+								<td  style="padding: 5px">Admitted Date : <obs id="admittedDate" conceptId="b36da368-4705-4582-b213-74a7a990aff8" allowFutureDates="true"/> 
+								Admitted To : <obs id="admittedTo" conceptId="a3e2e25b-a44c-4622-845e-24c6db5c496b" /></td>
+							</tr>
+								<td  style="padding: 5px">Reason for admission : <obs id="admittedReason" conceptId="ec8b9ede-fd85-4809-9bf2-e4550efd968c" /></td>
+						</table>
+						</div>
+					</td>	
+				</tr>
+				<!-- <tr>	
+					<td style="padding-left:10px;">11. Next Step</td>
+					<td  style="padding: 5px"><div>Next appointment date : <obs id="appointmentDate" conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" allowFutureDates="true" /></div></td>
+				</tr> -->
+			</table>
+
+		</fieldset>
+	</div>
+
+	<div class="ke-form-footer">
+		<submit />
+	</div>
+
+</htmlform>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.chaiemr.model">
+
+	<class name="DrugOrderProcessed" table="drug_order_processed" batch-size="500">
+
+		<id name="id" type="int" column="id"
+			unsaved-value="0">
+				<generator class="native" />
+		</id>
+		<many-to-one name="drugOrder" column="drug_order" class="org.openmrs.DrugOrder" foreign-key="fk_drugorderprocessed_drugorder"/>
+		<many-to-one name="patient" column="patient_id" class="org.openmrs.Patient" foreign-key="fk_patientIdfordrugorderprocessed"/>
+		<property name="createdDate" column="created_date"  />
+		<property name="processedDate" column="processed_date"  />
+		<property name="processedStatus" column="processed_status" />
+		<property name="dose" column="dose" />
+		<property name="doseRegimen" column="dose_regimen" />
+		<property name="noOfTablet" column="no_of_tablet" />
+		<many-to-one name="route" column="route_concept" class="org.openmrs.Concept" foreign-key="fk_route"/>
+		<property name="durationPreProcess" column="duration_preprocess" />
+		<property name="discontinuedDate" column="discontinued_date" />
+		<many-to-one name="discontinuedReason" column="discontinued_reason" class="org.openmrs.Concept" foreign-key="fk_discontinuedReasonfordrugordernotprocessed"/>
+		<property name="discontinuedReasonNonCoded" column="discontinued_reason_non_coded" />
+		<property name="quantityPostProcess" column="quantity_postprocess" />
+		<property name="drugRegimen" column="drug_regimen" />
+		<property name="regimenChangeType" column="regimen_change_type" />
+		<property name="typeOfRegimen" column="type_of_regimen" />
+		<property name="startDate" column="start_date"  />
+		<many-to-one name="visit" column="visit_id" class="org.openmrs.Visit" foreign-key="fk_visitIdfordrugorderprocessed"/>
+	</class>
+</hibernate-mapping>

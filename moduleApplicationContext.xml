@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- ===================== Content ===================== -->
+
+	<import resource="content/chaiemr.common.xml" />
+	<import resource="content/chaiemr.hiv.xml" />
+	<import resource="content/chaiemr.hcv.xml" /> 
+	<import resource="content/chaiemr.mchms.xml" />
+	<import resource="content/chaiemr.mchcs.xml" />
+	<import resource="content/chaiemr.tb.xml" />
+	<import resource="content/chaiemr.art.xml" />
+
+	<!-- ===================== App descriptors ===================== -->
+
+	
+	<bean id="chaiemr.app.registration" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.registration" />
+		<constructor-arg value="Registration" />
+		<constructor-arg value="chaiemr/registration/registrationHome.page" />
+		<constructor-arg value="chaiui:apps/registration.png" />
+		<constructor-arg value="100" />
+	</bean>
+ 
+	<bean id="chaiemr.app.intake" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.intake" />
+		<constructor-arg value="Laboratory" />
+		<constructor-arg value="chaiemr/intake/intakeHome.page" />
+		<constructor-arg value="chaiui:apps/laboratory.png" />
+		<constructor-arg value="400" />
+	</bean>
+ 
+	<bean id="chaiemr.app.clinician" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.medicalEncounter" />
+		<constructor-arg value="Clinician" />
+		<constructor-arg value="chaiemr/clinician/clinicianHome.page" />
+		<constructor-arg value="chaiui:apps/clinician.png" />
+		<constructor-arg value="200" />
+	</bean>
+	
+	<bean id="chaiemr.app.dispensary" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.drugDispense" />
+		<constructor-arg value="Dispensary" />
+		<constructor-arg value="chaiemr/dispensary/dispensaryHome.page" />
+		<constructor-arg value="chaiui:apps/dispensing.png" />
+		<constructor-arg value="300" />
+	</bean>	
+
+	
+	<bean id="chaiemr.app.chart" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.medicalChart" />
+		<constructor-arg value="Chart" />
+		<constructor-arg value="chaiemr/chart/chartHome.page" />
+		<constructor-arg value="chaiui:apps/chart.png" />
+		<constructor-arg value="500" />
+	</bean>
+	 
+
+	<bean id="chaiemr.app.reports" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.reports" />
+		<constructor-arg value="Reports" />
+		<constructor-arg value="chaiemr/reports/reportsHome.page" />
+		<constructor-arg value="chaiui:apps/reports.png" />
+		<constructor-arg value="600" />
+	</bean>
+
+	<bean id="chaiemr.app.directory" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.directory" />
+		<constructor-arg value="Directory" />
+		<constructor-arg value="chaiemr/directory/directoryHome.page" />
+		<constructor-arg value="chaiui:apps/directory.png" />
+		<constructor-arg value="1000" />
+	</bean>
+
+	<bean id="chaiemr.app.facilities" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.facilities" />
+		<constructor-arg value="Facilities" />
+		<constructor-arg value="chaiemr/facilities/facilitiesHome.page" />
+		<constructor-arg value="chaiui:apps/facilities.png" />
+		<constructor-arg value="900" />
+	</bean>
+
+	<bean id="chaiemr.app.admin" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.admin" />
+		<constructor-arg value="Admin" />
+		<constructor-arg value="chaiemr/admin/adminHome.page" />
+		<constructor-arg value="chaiui:apps/admin.png" />
+		<constructor-arg value="700" />
+	</bean>
+
+	<bean id="chaiemr.app.developer" factory-bean="chaicore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="chaiemr.developer" />
+		<constructor-arg value="Developer" />
+		<constructor-arg value="chaiemr/developer/developerHome.page" />
+		<constructor-arg value="chaiui:apps/developer.png" />
+		<constructor-arg value="800" />
+	</bean>
+
+	<!-- ===================== Lab test catalogs ===================== -->
+
+	<!-- Acts as a base class and means we can avoid specifying the full class name each time -->
+	<bean name="TestDefinition" class="org.openmrs.module.chaicore.lab.LabTestDefinition" abstract="true" />
+
+	<bean id="chaiemr.common.lab.standardcatalog" class="org.openmrs.module.chaicore.lab.LabTestCatalog">
+		<property name="tests">
+			<map>
+				<entry key="Urine Tests">
+					<list>
+						<bean parent="TestDefinition" p:concept="302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- URINALYSIS -->
+						<bean parent="TestDefinition" p:concept="45AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- URINE PREGNANCY TEST -->
+					</list>
+				</entry>
+				<entry key="Blood Tests">
+					<list>
+						<bean parent="TestDefinition" p:concept="21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- HAEMOGLOBIN -->
+						<bean parent="TestDefinition" p:concept="1319AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- LYMPHOCYTE COUNT -->
+						<!-- Missing: Serum Cryptococcal Antigen -->
+						<bean parent="TestDefinition" p:concept="856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- HIV VIRAL LOAD -->
+						<bean parent="TestDefinition" p:concept="855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- ERYTHROCYTE SEDIMENTATION RATE -->
+						<bean parent="TestDefinition" p:concept="857AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- BLOOD UREA NITROGEN -->
+					</list>
+				</entry>
+				<entry key="Biochemistry">
+					<list>
+						<bean parent="TestDefinition" p:concept="1012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- SERUM LACTATE -->
+						<bean parent="TestDefinition" p:concept="887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- SERUM GLUCOSE -->
+						<bean parent="TestDefinition" p:concept="654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- SERUM GLUTAMIC-PYRUVIC TRANSAMINASE -->
+						<bean parent="TestDefinition" p:concept="790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- SERUM CREATININE -->
+						<!-- Missing: Lipid profile -->
+						<bean parent="TestDefinition" p:concept="1299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- AMYLASE -->
+					</list>
+				</entry>
+				<entry key="Parasitology and Microbiology">
+					<list>
+						<bean parent="TestDefinition" p:concept="304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- STOOL EXAM -->
+						<!-- Missing: Stool Cultures -->
+						<bean parent="TestDefinition" p:concept="32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- MALARIAL SMEAR -->
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- Module service -->
+
+	<bean id="chaiEmrService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<bean class="org.openmrs.module.chaiemr.api.impl.ChaiEmrServiceImpl">
+				<property name="chaiEmrDAO">
+					<bean class="org.openmrs.module.chaiemr.api.db.hibernate.HibernateChaiEmrDAO">
+						<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="preInterceptors">
+			<ref bean="serviceInterceptors" />
+		</property>
+		<property name="transactionAttributeSource">
+			<ref bean="transactionAttributeSource" />
+		</property>
+	</bean>
+
+	<!-- Register service with OpenMRS -->
+
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>org.openmrs.module.chaiemr.api.ChaiEmrService</value>
+				<ref local="chaiEmrService"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- External requirements -->
+
+	<bean id="cielRequirement" class="org.openmrs.module.chaiemr.system.CielRequirement">
+		<property name="requiredVersion" value="20150123" />
+	</bean>
+
+	<!-- Build properties -->
+
+	<bean id="iso8601DateFactory" class="java.text.SimpleDateFormat">
+		<constructor-arg value="yyyy-MM-dd'T'HH:mm:ssZ" />
+	</bean>
+
+	<bean id="chaiEmrBuildProperties" class="org.openmrs.module.chaiemr.util.BuildProperties">
+		<property name="version" value="1.0" />
+		<property name="buildDate">
+			<bean factory-bean="iso8601DateFactory" factory-method="parse">
+				<constructor-arg value="2017-02-15T03:40:59+0000" />
+			</bean>
+		</property>
+		<property name="developer" value="Lenovo"/>
+	</bean>
+
+</beans>

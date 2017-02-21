@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.chaiemr.model">
+
+	<class name="DrugObsProcessed" table="drug_obs_processed" batch-size="500">
+
+		<id name="id" type="int" column="id"
+			unsaved-value="0">
+				<generator class="native" />
+		</id>
+		<many-to-one name="obs" column="obs" class="org.openmrs.Obs" foreign-key="fk_drugobsprocessed"/>
+		<many-to-one name="patient" column="patient_id" class="org.openmrs.Patient" foreign-key="fk_patientIdfordrugobsprocessed"/>
+		<property name="createdDate" column="created_date"  />
+		<property name="processedDate" column="processed_date"  />
+		<property name="quantityPostProcess" column="quantity_postprocess" />
+	</class>
+</hibernate-mapping>

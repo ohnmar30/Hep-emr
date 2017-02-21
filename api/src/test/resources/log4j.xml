@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] %m%n"/>
+		</layout>
+	</appender>
+	<!-- Hibernate HQL logging
+	<logger name="org.hibernate"><level value="info" /></logger>
+	<logger name="org.hibernate.type"><level value="trace" /></logger>
+	-->
+	<root>
+		<priority value="warn" />
+		<appender-ref ref="stdout"/>
+	</root>
+</log4j:configuration>

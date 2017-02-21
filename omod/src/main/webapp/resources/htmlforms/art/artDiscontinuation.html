@@ -1,0 +1,111 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+
+	<script type="text/javascript">
+		var value1;
+		jq(document).ready(function(){
+			jq("#enc").hide();
+			
+			if ((getValue('idReason.value')) == 5622) {
+				jq('#otherReason :input').prop('disabled', false);
+			}
+			else{
+				jq('#otherReason :input').prop('disabled', true);
+			}
+			
+			jq("#idReason select").change(function() {
+				if ((getValue('idReason.value')) == 5622) {
+					jq('#otherReason :input').prop('disabled', false);
+				}
+				else{
+					jq('#otherReason :input').prop('disabled', true);
+				}
+				
+			});
+               
+			var pbirthdate = new Date("<lookup expression="patient.birthdate" />").getTime();
+			var discontinueDate;
+			var otherReason;
+
+			beforeSubmit.push(function() {
+				discontinueDate = new Date(getValue('encounter-date.value')).getTime();
+
+				if(discontinueDate &lt; pbirthdate){
+					getField('discontinueDate.error').html('Discontinue date, should not be earlier than Birth date').show();
+					return false;
+				}
+	
+				var reason=getValue('idReason.value');
+				if(reason==""){
+				getField('idReason.error').html('Please Provide Discontinue Reason').show();
+				return false;
+				}
+				else{
+					if(reason==5622){
+						otherReason=getValue('otherReason.value');
+						if(otherReason==""){
+						getField('otherReason.error').html('Please Provide Other Discontinue Reason').show();
+						return false;
+						}
+					}
+				}
+				stopRegimen();
+				return true;
+			});
+		});
+		
+		function stopRegimen(){
+			var patient = "<lookup expression="patient.patientId" />";
+			var reason=getValue('idReason.value');
+			var otherReason;
+			var discontinueDate=getValue('encounter-date.value');
+			if (reason == 5622) {
+				otherReason=getValue('otherReason.value');
+			}
+			jQuery.ajax(ui.fragmentActionLink("chaiemr", "field/stopDrugRegimen", "stopRegimen",{ patient: patient,reason:reason,otherReason:otherReason,discontinueDate:discontinueDate}));
+		}
+	</script>
+
+	<div class="ke-form-content">
+		<fieldset>
+			<table class="baseline-aligned" width="40%" border="0">
+				<tr>
+					<td>Date:</td>
+					<td><encounterDate id="encounter-date" showTime="true"/></td>
+					<td> </td>
+				</tr>
+				<tr>
+					<td>Reason:</td>
+					<td><obs conceptId="1252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  id="idReason" answerConceptIds="1253,1754,137793,162846,102,159874,159598,162905,160016,5622"/></td>
+					<td ><obs conceptId="163081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="otherReason"/></td>
+				</tr>
+
+			</table>
+			
+			
+		  <encounterLocation id="enc" default="GlobalProperty:chaiemr.defaultLocation" type="autocomplete"/>
+			
+			<br/>
+
+		</fieldset>
+
+		<completeProgram programId="96ec813f-aaf0-45b2-add6-e661d5bf79d6" />
+	</div>
+
+	<div class="ke-form-footer">
+		<submit />
+	</div>
+
+</htmlform>

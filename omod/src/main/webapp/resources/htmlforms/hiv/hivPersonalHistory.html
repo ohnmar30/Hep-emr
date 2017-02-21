@@ -1,0 +1,306 @@
+ <!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+
+<htmlform>
+<style>
+input[type=button], button {
+	background-color: Transparent;
+}
+</style>
+<script type="text/javascript">
+		jq(document).ready(function () {
+			
+			if (getValue('therapySelection.value') == 1066) {
+				jq('#therapyName :input').prop('disabled', true);
+			}
+			else {
+				jq('#therapyName :input').prop('disabled', false);
+			}
+		
+			jq("#therapySelection input:radio").change(function() {
+				if (getValue('therapySelection.value') == 1066) {
+					jq('#therapyName :input').prop('disabled', true);
+				}
+				else {
+					jq('#therapyName :input').prop('disabled', false);
+				}
+			});
+	
+			var addImageLink = "/"+OPENMRS_CONTEXT_PATH+"/ms/uiframework/resource/chaiui/images/glyphs/revisit.png";
+			var removeImageLink = "/"+OPENMRS_CONTEXT_PATH+"/ms/uiframework/resource/chaiui/images/glyphs/close.png";
+
+			
+			// show fields with data 
+			fieldIndex = 34; 
+			j=1;
+			document.getElementById(j+'-addImage').src = addImageLink;
+			document.getElementById(j+'-removeImage').src = removeImageLink;
+			
+			if(document.getElementById("w"+fieldIndex)!=null){
+			while(document.getElementById("w"+fieldIndex).value!="" &amp;&amp; j &lt; 6){
+				jQuery('#'+j+'-toggleContainer').show();   
+				fieldIndex=fieldIndex+2;
+				if(document.getElementById("w"+fieldIndex).value != '')
+					{
+				$j('#'+j+'-removeEntry').toggle(false);
+				$j('#'+j+'-addEntry').toggle(false);
+					}
+				j++;
+				document.getElementById(j+'-addImage').src = addImageLink;
+				document.getElementById(j+'-removeImage').src = removeImageLink;
+			}
+			}
+			//if(document.getElementById("w"+36).value == NULL)
+				//{
+				//$j('#1-removeEntry').remove();
+				
+				//}
+	
+			$j('#1-removeEntry').remove();
+			$j('#5-addEntry').remove();
+			$j('#1-toggleContainer').show();
+			
+			$j('button.addEntry').on("click", function(){
+				var correctedAddButtonId = parseFloat(this.id) + 1;      
+				var contentAddId = "#" + correctedAddButtonId + "-toggleContainer";
+				$j(contentAddId).toggle(true);      
+				$j('#' + this.id).toggle(false); 
+				$j('#' + parseFloat(this.id) + '-removeEntry').toggle(false);
+
+				if(correctedAddButtonId &lt; 5) {
+					document.getElementById(correctedAddButtonId+'-addImage').src = addImageLink;
+				}
+				if(correctedAddButtonId &gt; 1) {
+					document.getElementById(correctedAddButtonId+'-removeImage').src = removeImageLink;
+				}
+				
+				return false;});    
+			 
+			$j('button.removeEntry').on("click", function(){ 
+				
+				var correctedRemoveButtonId = parseFloat(this.id) - 1;
+				var contentAddId = "#" + parseFloat(this.id) + "-toggleContainer";
+				$j(contentAddId).toggle(false);
+				$j( ':input:not(:button)', contentAddId).val([]);
+				$j('#' + correctedRemoveButtonId + '-addEntry').toggle(true);
+				$j('#' + correctedRemoveButtonId + '-removeEntry').toggle(true);
+				if(correctedRemoveButtonId &gt; 1) {
+					document.getElementById(correctedRemoveButtonId+'-removeImage').src = removeImageLink;
+				}
+				return false;
+				});
+			
+			
+			beforeSubmit.push(function() {
+				//disabled pattern
+				/*fieldIndex = 34; 
+				j=1;
+				console.log(jq("#w"+fieldIndex));
+				while(document.getElementById("w"+fieldIndex).value!="" &amp;&amp; j &lt; 6){
+					console.log(j("#w"+fieldIndex+"_hid"));
+					var id = document.getElementById("w"+fieldIndex+"_hid").value
+					if(id=="ERROR"){
+						alert("Kindly enter data in correct format");
+						return false;
+					}
+					j++;
+					fieldIndex=fieldIndex+2;
+				}*/
+				return true;
+			});
+			
+			if($("#therapyName select").val()=="79661"){
+				$("tr[name=methadone-attr]").show();
+			}
+			
+			$("#therapyName select").on("change", function(){
+				var targetElement = $("#therapyName select");
+				if(targetElement.val()=="79661"){// if selected methadone
+					$("tr[name=methadone-attr]").show(500);
+				}else{
+					$("tr[name=methadone-attr]").hide(500);
+				}
+			})		
+			
+		});
+	</script> <!-- STYLE ======================
+	=================================-->
+
+<style>
+td, tr, table {
+	padding: 5px 10px 5px 5px;
+}
+
+table {
+	margin-left: 15px;
+}
+
+tbody {
+	padding-left: 0px !important;
+}
+
+input[type=text] {
+	width: 200px;
+}
+
+select {
+	width: 200px;
+	height: 28px !important;
+}
+
+input[type=checkbox] {
+	padding: 0 0 0 0;
+	min-width: 25px;
+	font-weight: bold;
+	background-color: #d9d9d9 !important;
+}
+
+input[type=radio] {
+	padding: 0 0 0 0;
+	min-width: 20px;
+	font-weight: bold;
+	background-color: #d9d9d9 !important;
+}
+
+input[type=button], button {
+	padding: 5px 10px 5px 5px;
+	margin-right: 15px;
+	min-width: 110px;
+	font-weight: bold;
+	background-color: #d9d9d9 !important;
+}
+</style>
+
+<!-- STYLE ======================
+	=================================--> <!-- Encounter date, provider and location are not relevant for CE forms -->
+<div style="display: none">
+	<encounterDate id="encounter-date" showTime="true" />
+	<encounterLocation default="GlobalProperty:chaiemr.defaultLocation" />
+</div>
+
+<div class="ke-form-content">
+	<table width="100%" align="left" style="background-color: #c7d8a7;">
+		<tr>
+			<td>
+				<table align="left" class="tb1" cellspacing="10" width="50%"
+					style="background-color: #e8efdc; margin-left: 0px !important;">
+					<tr>
+						<td>Risk factor for HIV:</td>
+						<td><obs conceptId="160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerConceptId="160578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerLabel="Men who has sex with men (MSM)" style="checkbox" />
+						</td>
+						<td><obs conceptId="160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerConceptId="160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerLabel="Sex worker (SW) " style="checkbox" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><obs conceptId="160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerConceptId="855ee133-d234-4440-9599-780dfcded511"
+								answerLabel="Heterosexual" style="checkbox" /></td>
+						<td><obs conceptId="160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerConceptId="300c6c1e-1ced-4803-b00a-e654f6f18a63"
+								answerLabel="Injection drug use" style="checkbox" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><obs conceptId="160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerConceptId="1063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerLabel="Blood transfusion" style="checkbox" /></td>
+						<td><obs conceptId="160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerConceptId="327bb8a9-822e-419d-b7c8-548f766d30f0"
+								answerLabel="Mother to child" style="checkbox" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><obs conceptId="160581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerConceptId="1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+								answerLabel="Unknown" style="checkbox" /></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<br />
+		<tr>
+			<td>
+				<table
+					style="background-color: #e8efdc; margin-left: 0px !important;"
+					align="left" class="tb1" cellspacing="5" width="35%">
+					<tr>
+						<td width="45%">PWIDs substitution therapy</td>
+						<td width="55%"><obs style="radio"
+								conceptId="9605819f-b191-4bdf-b33a-cefc50436ed0"
+								id="therapySelection" /></td>
+					</tr>
+					<tr>
+						<td>If yes, type</td>
+						<td><obs conceptId="06ba79f6-7344-456a-8265-35f87d43394f"
+								id="therapyName" /></td>
+					</tr>
+					
+					<tr>
+						<td>Literate?</td>
+						<td><obs style="radio"
+								conceptId="b4d2e1fa-6484-4004-97d3-075e19381174" /></td>
+					</tr>
+					<tr>
+						<td>Employed?</td>
+						<td><obs style="radio"
+								conceptId="fd3b9c4b-a0ce-4602-a79d-ee8ffd6a4c71" /></td>
+					</tr>
+					<tr>
+						<td>Alcoholism?</td>
+						<td><obs conceptId="fe2b8af1-b305-46bf-a7ce-75d931660a7a"
+								id="alcoholType" /></td>
+					</tr>
+					<tr>
+						<td>What is the estimated monthly<br /> household income (In
+							Kyat/month)?
+						</td>
+						<td><obs conceptId="159776AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+					</tr>
+					<tr>
+						<td>Co-morbidities :</td>
+					</tr>
+					<tr>
+						<repeat> <template>
+						<tr id="{n}-toggleContainer" style="display: none;">
+							<td valign="top">{n}.<obs
+									conceptId="6f3ac1ca-0500-4286-9c62-7190c4e792d9"
+									style="autocomplete" id="{n}-comorbidity" />
+							</td>
+							<td><button id="{n}-addEntry" class="addEntry">
+									<img id="{n}-addImage" width="20" height="20" />
+								</button>
+								<button id="{n}-removeEntry" class="removeEntry">
+									<img id="{n}-removeImage" width="20" height="20" />
+								</button></td>
+						</tr>
+						</template> <render n="1" concept=" " /> <render n="2" concept=" " /> <render
+							n="3" concept=" " /> <render n="4" concept=" " /> <render n="5"
+							concept=" " /> </repeat>
+
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="ke-form-footer">
+	<submit successUrl="" />
+</div>
+
+</htmlform>

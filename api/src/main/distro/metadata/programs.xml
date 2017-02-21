@@ -1,0 +1,9 @@
+<!-- Programs used by ChaiEMR, listed A-Z -->
+<refs type="Program">
+	<ref key="HIV" uuid="dfdc6d40-2f2f-463d-ba90-cc97350441a8" />
+	<ref key="MCH_CS" uuid="c2ecdf11-97cd-432a-a971-cfd9bd296b83" />
+	<ref key="MCH_MS" uuid="b5d9e05f-f5ab-4612-98dd-adb75438ed34" />
+	<ref key="TB" uuid="9f144a34-3a4a-44a9-8486-6b7af6cc64f6" />
+	<ref key="ART" uuid="96ec813f-aaf0-45b2-add6-e661d5bf79d6" />
+	<ref key="HCV" uuid="577794e2-8958-4362-bc33-b69b1058de24" />
+</refs>

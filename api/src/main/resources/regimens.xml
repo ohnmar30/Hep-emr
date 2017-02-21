@@ -1,0 +1,337 @@
+<!--
+	Defines the standard Chai regimens
+-->
+<regimens xmlns="http://www.chaiemr.org/regimens" version="3">
+	<category code="ARV" masterSetUuid="${metadata.concept.ANTIRETROVIRAL_DRUGS}">
+		<drugs>
+			<drug code="d4T" conceptUuid="84309AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Stavudine -->
+			<drug code="AZT" conceptUuid="86663AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Zidovudine -->
+			<drug code="TDF" conceptUuid="84795AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Tenofovir -->
+			<drug code="3TC" conceptUuid="78643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Lamivudine -->
+			<drug code="ABC" conceptUuid="70056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Abacavir -->
+			<drug code="FTC" conceptUuid="75628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Emtricitabine -->
+			<drug code="DDI" conceptUuid="74807AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Didanosine -->
+			<drug code="NVP" conceptUuid="80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Nevirapine -->
+			<drug code="EFV" conceptUuid="75523AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Efavirenz -->
+			<drug code="LPV" conceptUuid="79040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Lopinavir -->
+			<drug code="RTV" conceptUuid="83412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Ritonavir -->
+			<drug code="ATV" conceptUuid="71647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- Atazanavir -->
+			<drug code="ETR" conceptUuid="159810AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- ETRAVIRINE -->
+			<drug code="RAL" conceptUuid="154378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- RALTEGRAVIR -->
+			<drug code="DRV" conceptUuid="74258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /><!-- DARUNAVIR -->
+
+		</drugs>
+
+		<!-- Preferred first line -->
+		<group code="preferred-first" name="Preferred first line">
+			<regimen name="TDF + 3TC + EFV (300mg OD/300mg OD/600mg OD)">
+				<component drugCode="TDF" dose="300" units="mg" frequency="OD" />
+				<component drugCode="3TC" dose="300" units="mg" frequency="OD" />
+				<component drugCode="EFV" dose="600" units="mg" frequency="OD" />
+			</regimen>
+			<regimen name="TDF + FTC + EFV (300mg OD/200mg OD/600mg OD)">
+				<component drugCode="TDF" dose="300" units="mg" frequency="OD" />
+				<component drugCode="FTC" dose="200" units="mg" frequency="OD" />
+				<component drugCode="EFV" dose="600" units="mg" frequency="OD" />
+			</regimen>
+		</group>
+			<!-- Alternative first line -->
+		<group code="alternative-first" name="Alternative first line">
+			<regimen name="AZT + 3TC + NVP (300mg BD/150mg BD/200mg BD)">
+				<component drugCode="AZT" dose="300" units="mg" frequency="BD" />
+				<component drugCode="3TC" dose="150" units="mg" frequency="BD" />
+				<component drugCode="NVP" dose="200" units="mg" frequency="BD" />
+			</regimen>
+			<regimen name="AZT + 3TC + EFV (300mg BD/150mg BD/600mg OD)">
+				<component drugCode="AZT" dose="300" units="mg" frequency="BD" />
+				<component drugCode="3TC" dose="150" units="mg" frequency="BD" />
+				<component drugCode="EFV" dose="600" units="mg" frequency="NOCTE" />
+			</regimen>
+			<regimen name="ABC + 3TC + EFV (600mg OD/300mg OD/600mg OD)">
+				<component drugCode="ABC" dose="600" units="mg" frequency="OD" />
+				<component drugCode="3TC" dose="300" units="mg" frequency="OD" />
+				<component drugCode="EFV" dose="600" units="mg" frequency="OD" />
+			</regimen>
+			<regimen name="d4T + 3TC + NVP (30mg BD/150mg BD/200mg BD)">
+				<component drugCode="d4T" dose="30" units="mg" frequency="BD" />
+				<component drugCode="3TC" dose="150" units="mg" frequency="BD" />
+				<component drugCode="NVP" dose="200" units="mg" frequency="BD" />
+			</regimen>
+		</group>
+		<!-- Second line -->
+		<group code="adult-second" name="Second line">
+			<regimen name="AZT + 3TC + LPV/r (300mg BD/150mg BD/200mg BD/50mg BD)">
+				<component drugCode="AZT" dose="300" units="mg" frequency="BD" />
+				<component drugCode="3TC" dose="150" units="mg" frequency="BD" />
+				<component drugCode="LPV" dose="200" units="mg" frequency="BD" />
+				<component drugCode="RTV" dose="50" units="mg" frequency="BD" />
+			</regimen>
+			<regimen name="TDF + 3TC + LPV/r (300mg OD/300mg OD/200mg BD/50mg BD)">
+				<component drugCode="TDF" dose="300" units="mg" frequency="OD" />
+				<component drugCode="3TC" dose="300" units="mg" frequency="OD" />
+				<component drugCode="LPV" dose="200" units="mg" frequency="BD" />
+				<component drugCode="RTV" dose="50" units="mg" frequency="BD" />
+			</regimen>
+			<regimen name="TDF + FTC + LPV/r (300mg OD/200mg OD/200mg BD/50mg BD)">
+				<component drugCode="TDF" dose="300" units="mg" frequency="OD" />
+				<component drugCode="FTC" dose="200" units="mg" frequency="OD" />
+				<component drugCode="LPV" dose="200" units="mg" frequency="BD" />
+				<component drugCode="RTV" dose="50" units="mg" frequency="BD" />
+			</regimen>
+			<regimen name="TDF + ABC + LPV/r (300mg OD/300mg BD/200mg BD/50mg BD)">
+				<component drugCode="TDF" dose="300" units="mg" frequency="OD" />
+				<component drugCode="3TC" dose="300" units="mg" frequency="BD" />
+				<component drugCode="LPV" dose="200" units="mg" frequency="BD" />
+				<component drugCode="RTV" dose="50" units="mg" frequency="BD" />
+			</regimen>
+			<regimen name="ABC + 3TC + LPV/r (600mg OD/300mg OD/200mg BD/50mg BD)">
+				<component drugCode="ABC" dose="600" units="mg" frequency="OD" />
+				<component drugCode="3TC" dose="300" units="mg" frequency="OD" />
+				<component drugCode="LPV" dose="200" units="mg" frequency="BD" />
+				<component drugCode="RTV" dose="50" units="mg" frequency="BD" />
+			</regimen>
+		</group>
+		<!-- HIV and HBV Co-infection -->
+		<group code="hiv-hbv-coinfection" name="HIV and HBV Co-infection">
+			<regimen name="AZT + TDF + 3TC + LPV/r (300mg BD/300mg OD/150mg BD/200mg BD/50mg BD)">
+				<component drugCode="AZT" dose="300" units="mg" frequency="BD" />
+				<component drugCode="TDF" dose="300" units="mg" frequency="OD" />
+				<component drugCode="3TC" dose="150" units="mg" frequency="BD" />
+				<component drugCode="LPV" dose="200" units="mg" frequency="BD" />
+				<component drugCode="RTV" dose="50" units="mg" frequency="BD" />
+			</regimen>
+		</group>
+		<!-- Child -->
+		<group code="child-first" name="Child">
+			<regimen name="ABC + 3TC + LPV/r (60mg/30mg/100mg/25mg)">
+			    <component drugCode="ABC" dose="60" units="mg" />
+				<component drugCode="3TC" dose="30" units="mg" />
+				<component drugCode="LPV" dose="100" units="mg" />
+				<component drugCode="RTV" dose="25" units="mg" />	
+			</regimen>
+			<regimen name="ABC + 3TC + NVP (60mg/30mg/50mg)">
+				<component drugCode="ABC" dose="60" units="mg" />
+				<component drugCode="3TC" dose="30" units="mg" />
+				<component drugCode="NVP" dose="50" units="mg" />
+			</regimen>
+			<regimen name="ABC + 3TC + EFV (60mg/30mg/200mg)">
+				<component drugCode="ABC" dose="60" units="mg" />
+				<component drugCode="3TC" dose="30" units="mg" />
+				<component drugCode="EFV" dose="200" units="mg" />
+			</regimen>
+			<regimen name="ABC + 3TC + EFV (60mg/30mg/600mg)">
+				<component drugCode="ABC" dose="60" units="mg" />
+				<component drugCode="3TC" dose="30" units="mg" />
+				<component drugCode="EFV" dose="600" units="mg" />
+			</regimen>
+			<regimen name="AZT + 3TC + EFV (60mg/30mg/200mg)">
+				<component drugCode="ABC" dose="60" units="mg" />
+				<component drugCode="3TC" dose="30" units="mg" />
+				<component drugCode="EFV" dose="200" units="mg" />
+			</regimen>
+			<regimen name="AZT + 3TC + EFV (60mg/30mg/600mg)">
+				<component drugCode="ABC" dose="60" units="mg" />
+				<component drugCode="3TC" dose="30" units="mg" />
+				<component drugCode="EFV" dose="600" units="mg" />
+			</regimen>
+			<regimen name="AZT + 3TC + ABC (60mg/30mg/60mg)">
+				<component drugCode="AZT" dose="60" units="mg" />
+				<component drugCode="3TC" dose="30" units="mg" />
+				<component drugCode="ABC" dose="60" units="mg" />
+			</regimen>
+          	<regimen name="AZT + 3TC + NVP (60mg/30mg/50mg)">
+				<component drugCode="AZT" dose="60" units="mg" />
+				<component drugCode="3TC" dose="30" units="mg" />
+				<component drugCode="NVP" dose="50" units="mg" />
+			</regimen>		
+			<regimen name="AZT + 3TC + LPV/r (60mg/30mg/100mg/25mg)">
+				<component drugCode="AZT" dose="60" units="mg" />
+				<component drugCode="3TC" dose="30" units="mg" />
+				<component drugCode="LPV" dose="100" units="mg" />
+				<component drugCode="RTV" dose="25" units="mg" />
+			</regimen>	
+			</group>
+	</category>
+	<category code="TB" masterSetUuid="160021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+		<drugs>
+			<drug code="R150" drugUuid="a74fefc6-931d-47b9-b282-5d6c8c8d8060" /><!-- Rifampicin 150mg -->
+			<drug code="R60" drugUuid="161f633d-ab5d-4cd1-94c5-7a012dedc388" /><!-- Rifampicin 60mg -->
+			<drug code="H150" drugUuid="89b72116-108d-4b65-b7fe-5a841192e095" /><!-- Isoniazid 150mg -->
+			<drug code="H75" drugUuid="97810e6b-cfcf-44fa-b63c-5d3e12cbe8d7" /><!-- Isoniazid 75mg -->
+			<drug code="H30" drugUuid="9a012906-3778-4e2e-848f-e0272bfe9e27" /><!-- Isoniazid 30mg -->
+			<drug code="Z400" drugUuid="0dbc4971-67ea-40d7-8089-7c327e5f3c6e" /><!-- Pyrazinamide 400mg -->
+			<drug code="Z150" drugUuid="c97032a4-2136-4e92-8ff8-3fc6faab4133" /><!-- Pyrazinamide 150mg -->
+			<drug code="E400" drugUuid="37e185a3-ba6b-447a-83e0-7ff3edbe76f7" /><!-- Ethambutol 400mg -->
+			<drug code="E275" drugUuid="52690c5a-e9cd-4561-8aad-3b646fb7deaa" /><!-- Ethambutol 275mg -->
+			<drug code="S1" drugUuid="13b56178-a15b-4070-951d-2ce813cccc32" /><!-- Streptomycin 1g -->
+		</drugs>
+
+		<group code="adult-intensive" name="Intensive Phase (Adult)">
+			<regimen name="RHZE (150mg/75mg/400mg/275mg ⨉ 2 tabs)">
+				<component drugCode="R150" dose="2" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="2" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="2" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="2" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZE (150mg/75mg/400mg/275mg ⨉ 3 tabs)">
+				<component drugCode="R150" dose="3" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="3" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="3" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="3" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZE (150mg/75mg/400mg/275mg ⨉ 4 tabs)">
+				<component drugCode="R150" dose="4" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="4" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="4" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="4" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZ (150mg/75mg/400mg ⨉ 2 tabs)">
+				<component drugCode="R150" dose="2" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="2" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="2" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZ (150mg/75mg/400mg ⨉ 3 tabs)">
+				<component drugCode="R150" dose="3" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="3" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="3" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZ (150mg/75mg/400mg ⨉ 4 tabs)">
+				<component drugCode="R150" dose="4" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="4" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="4" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="SRHZE (1g + 150mg/75mg/400mg/275mg ⨉ 2 tabs)">
+				<component drugCode="S1" dose="1" units="g" frequency="OD" />
+				<component drugCode="R150" dose="2" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="2" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="2" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="2" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="SRHZE (1g + 150mg/75mg/400mg/275mg ⨉ 3 tabs)">
+				<component drugCode="S1" dose="1" units="g" frequency="OD" />
+				<component drugCode="R150" dose="3" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="3" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="3" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="3" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="SRHZE (1g + 150mg/75mg/400mg/275mg ⨉ 4 tabs)">
+				<component drugCode="S1" dose="1" units="g" frequency="OD" />
+				<component drugCode="R150" dose="4" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="4" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="4" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="4" units="tab" frequency="OD" />
+			</regimen>
+		</group>
+
+		<group code="child-intensive" name="Intensive Phase (Child)">
+			<regimen name="RHZ (60mg/30mg/150mg)">
+				<component drugCode="R60" units="tab" frequency="OD" />
+				<component drugCode="H30" units="tab" frequency="OD" />
+				<component drugCode="Z150" units="tab" frequency="OD" />
+			</regimen>
+		</group>
+
+		<group code="adult-continuation" name="Continuation Phase (Adult)">
+			<regimen name="RHZE (150mg/75mg/400mg/275mg ⨉ 2 tabs)">
+				<component drugCode="R150" dose="2" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="2" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="2" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="2" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZE (150mg/75mg/400mg/275mg ⨉ 3 tabs)">
+				<component drugCode="R150" dose="3" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="3" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="3" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="3" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZE (150mg/75mg/400mg/275mg ⨉ 4 tabs)">
+				<component drugCode="R150" dose="4" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="4" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="4" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="4" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZ (150mg/75mg/400mg ⨉ 2 tabs)">
+				<component drugCode="R150" dose="2" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="2" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="2" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZ (150mg/75mg/400mg ⨉ 3 tabs)">
+				<component drugCode="R150" dose="3" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="3" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="3" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZ (150mg/75mg/400mg ⨉ 4 tabs)">
+				<component drugCode="R150" dose="4" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="4" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="4" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHE (150mg/75mg/275mg ⨉ 2 tabs)">
+				<component drugCode="R150" dose="2" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="2" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="2" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHE (150mg/75mg/275mg ⨉ 3 tabs)">
+				<component drugCode="R150" dose="3" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="3" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="3" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHE (150mg/75mg/275mg ⨉ 4 tabs)">
+				<component drugCode="R150" dose="4" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="4" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="4" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RH (150mg/75mg ⨉ 2 tabs)">
+				<component drugCode="R150" dose="2" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="2" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RH (150mg/75mg ⨉ 3 tabs)">
+				<component drugCode="R150" dose="3" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="3" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RH (150mg/75mg ⨉ 4 tabs)">
+				<component drugCode="R150" dose="4" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="4" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="EH (275mg/75mg ⨉ 2 tabs)">
+				<component drugCode="E400" dose="2" units="tab" frequency="OD" />
+				<component drugCode="H150" dose="2" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="EH (275mg/75mg ⨉ 3 tabs)">
+				<component drugCode="E400" dose="3" units="tab" frequency="OD" />
+				<component drugCode="H150" dose="3" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="EH (275mg/75mg ⨉ 4 tabs)">
+				<component drugCode="E400" dose="4" units="tab" frequency="OD" />
+				<component drugCode="H150" dose="4" units="tab" frequency="OD" />
+			</regimen>
+		</group>
+
+		<group code="child-continuation" name="Continuation Phase (Child)">
+			<regimen name="RH (60mg/30mg)">
+				<component drugCode="R60" units="tab" frequency="OD" />
+				<component drugCode="H30" units="tab" frequency="OD" />
+			</regimen>
+		</group>
+
+		<group code="retreatment" name="Re-treatment">
+			<regimen name="RHZE (150mg/75mg/400mg/275mg ⨉ 2 tabs)">
+				<component drugCode="R150" dose="2" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="2" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="2" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="2" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZE (150mg/75mg/400mg/275mg ⨉ 3 tabs)">
+				<component drugCode="R150" dose="3" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="3" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="3" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="3" units="tab" frequency="OD" />
+			</regimen>
+			<regimen name="RHZE (150mg/75mg/400mg/275mg ⨉ 4 tabs)">
+				<component drugCode="R150" dose="4" units="tab" frequency="OD" />
+				<component drugCode="H75" dose="4" units="tab" frequency="OD" />
+				<component drugCode="Z400" dose="4" units="tab" frequency="OD" />
+				<component drugCode="E275" dose="4" units="tab" frequency="OD" />
+			</regimen>
+		</group>
+	</category>
+</regimens>

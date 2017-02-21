@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- ===================== Program ===================== -->
+
+	<bean id="chaiemr.hiv.program" class="org.openmrs.module.chaicore.program.ProgramDescriptor">
+		<property name="targetUuid" value="577794e2-8958-4362-bc33-b69b1058de24" />
+		<property name="eligibilityCalculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.EligibleForHivProgramCalculation" />
+		<property name="defaultEnrollmentForm" ref="chaiemr.hiv.form.enrollment" />
+		<property name="defaultCompletionForm" ref="chaiemr.hiv.form.completion" />
+	
+		<property name="reports">
+			<set>
+				
+		
+			</set>
+		</property>
+		<property name="fragments">
+			<map>
+				<entry key="enrollment-summary" value="chaiemr:program/hiv/hivEnrollmentSummary" />
+				<entry key="care-panel" value="chaiemr:program/hiv/hivCarePanel" />
+				<entry key="completion-summary" value="chaiemr:program/hiv/hivCompletionSummary" />
+			</map>
+		</property>
+		<property name="order" value="100" />
+	</bean>
+
+	<!-- ===================== Identifiers ===================== -->
+
+	<!-- Unique Patient Number
+	<bean id="chaiemr.hiv.identifier.upn" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="05ee9cf4-7242-4a17-b4d4-00f707265c8a" />
+		<property name="order" value="50" />
+	</bean>
+ -->
+	<!-- ===================== Forms ===================== -->
+
+	<!-- HIV Enrollment -->
+	<bean id="chaiemr.hiv.form.enrollment" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="e4b506c1-7379-42b6-a374-284469cba8da" />
+		<property name="apps">
+			<set>
+			<!--<ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<!-- <ref bean="chaiemr.app.chart" /> -->
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:hiv/hivEnrollment.html" />
+	</bean>
+
+	<!-- HIV Completion -->
+	<bean id="chaiemr.hiv.form.completion" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="e3237ede-fa70-451f-9e6c-0908bc39f8b9" />
+		<property name="apps">
+			<set>
+			<!--<ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<!-- <ref bean="chaiemr.app.chart" /> -->
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/completion.png" />
+		<property name="htmlform" value="chaiemr:hiv/hivDiscontinuation.html" />
+	</bean>
+
+	<!-- MOH257 Face Page -->
+	<bean id="chaiemr.hiv.form.moh257FacePage" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="47814d87-2e53-45b1-8d05-ac2e944db64c" />
+		<property name="apps">
+			<set>
+			<!--<ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<!-- <ref bean="chaiemr.app.chart" /> -->
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/moh257.png" />
+		<property name="htmlform" value="chaiemr:hiv/moh257FacePage.html" />
+	</bean>
+
+	<!-- MOH257 ARV Therapy -->
+	<bean id="chaiemr.hiv.form.moh257ArvTherapy" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="8f5b3ba5-1677-450f-8445-33b9a38107ae" />
+		<property name="apps">
+			<set>
+				<!-- <ref bean="chaiemr.app.chart" /> -->
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/moh257.png" />
+		<property name="htmlform" value="chaiemr:hiv/moh257ArvTherapy.html" />
+	</bean>
+
+	<!-- MOH257 Visit Summary -->
+	<bean id="chaiemr.hiv.form.moh257VisitSummary" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="23b4ebbd-29ad-455e-be0e-04aa6bc30798" />
+		<property name="apps">
+			<set>
+				<!-- <ref bean="chaiemr.app.chart" /> -->
+			</set>
+		</property>
+		<property name="autoCreateVisitTypeUuid" value="3371a4d4-f66f-4454-a86d-92c7b3da990c" />
+		<property name="icon" value="chaiui:forms/moh257.png" />
+		<property name="htmlform" value="chaiemr:hiv/moh257VisitSummary.html" />
+		<property name="order" value="201030" />
+	</bean>
+	
+
+	<!-- ===================== Reports ===================== -->
+
+</beans>

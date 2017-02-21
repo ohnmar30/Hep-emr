@@ -1,0 +1,730 @@
+From 3d3c51dbec39bab0dea62470734d3695f5fc3a46 Mon Sep 17 00:00:00 2001
+From: Sagar Bele <sagarb.4488@gmail.com>
+Date: Wed, 2 Nov 2016 11:45:10 +0530
+Subject: [PATCH 3/5] #8158 : visit in different rows.
+
+---
+ .../ImportPatientsListFragmentController.java      | 227 +++++++++++----------
+ 1 file changed, 119 insertions(+), 108 deletions(-)
+
+diff --git a/omod/src/main/java/org/openmrs/module/chaiemr/fragment/controller/patient/ImportPatientsListFragmentController.java b/omod/src/main/java/org/openmrs/module/chaiemr/fragment/controller/patient/ImportPatientsListFragmentController.java
+index 65ca8ea..35e3e02 100644
+--- a/omod/src/main/java/org/openmrs/module/chaiemr/fragment/controller/patient/ImportPatientsListFragmentController.java
++++ b/omod/src/main/java/org/openmrs/module/chaiemr/fragment/controller/patient/ImportPatientsListFragmentController.java
+@@ -310,45 +310,6 @@ public class ImportPatientsListFragmentController {
+ 							 * End Patient Creation
+ 							 */
+ 
+-							// With value text and Date
+-							if (legacyData.get(15) != null) {
+-
+-								Date dateTransfer = null;
+-								if (legacyData.get(17) != null) {
+-									try {
+-										dateTransfer = formatter
+-												.parse(legacyData.get(17));
+-
+-									} catch (ParseException e) {
+-										e.printStackTrace();
+-									}
+-								}
+-
+-								Concept enrollementConcept = Context
+-										.getConceptService().getConcept(
+-												Integer.parseInt(legacyData
+-														.get(15)));
+-
+-								handleOncePerPatientObs(
+-										ret,
+-										Dictionary
+-												.getConcept(Dictionary.METHOD_OF_ENROLLMENT),
+-										enrollementConcept, "", dateTransfer,
+-										null);
+-							}
+-
+-							if (legacyData.get(7) != null) {
+-								Concept ingoConcept = Context
+-										.getConceptService().getConcept(
+-												Integer.parseInt(legacyData
+-														.get(7)));
+-								handleOncePerPatientObs(
+-										ret,
+-										Dictionary
+-												.getConcept(Dictionary.INGO_NAME),
+-										ingoConcept, "", null, null);
+-							}
+-
+ 							/**
+ 							 ** Start : Visit, Encounter and Program creation for
+ 							 * Patient entered as Legacy Data Visit start date
+@@ -408,6 +369,45 @@ public class ImportPatientsListFragmentController {
+ 
+ 							Visit visitSave = Context.getVisitService()
+ 									.saveVisit(visit);
++							
++							// With value text and Date
++							if (legacyData.get(15) != null) {
++
++								Date dateTransfer = null;
++								if (legacyData.get(17) != null) {
++									try {
++										dateTransfer = formatter
++												.parse(legacyData.get(17));
++
++									} catch (ParseException e) {
++										e.printStackTrace();
++									}
++								}
++
++								Concept enrollementConcept = Context
++										.getConceptService().getConcept(
++												Integer.parseInt(legacyData
++														.get(15)));
++
++								handleOncePerPatientObs(
++										ret,
++										Dictionary
++												.getConcept(Dictionary.METHOD_OF_ENROLLMENT),
++										enrollementConcept, "", dateTransfer,
++										null, visitSave);
++							}
++
++							if (legacyData.get(7) != null) {
++								Concept ingoConcept = Context
++										.getConceptService().getConcept(
++												Integer.parseInt(legacyData
++														.get(7)));
++								handleOncePerPatientObs(
++										ret,
++										Dictionary
++												.getConcept(Dictionary.INGO_NAME),
++										ingoConcept, "", null, null, visitSave);
++							}
+ 
+ 							EncounterType hivEnrollEncType = MetadataUtils
+ 									.existing(
+@@ -482,7 +482,7 @@ public class ImportPatientsListFragmentController {
+ 										Dictionary
+ 												.getConcept(Dictionary.LITERATE),
+ 										literate, "", null, null,
+-										enpersonalrecordresultNew, null);
++										enpersonalrecordresultNew, null,visitSave);
+ 
+ 							}
+ 							if (legacyData.get(21) != null) {
+@@ -502,7 +502,7 @@ public class ImportPatientsListFragmentController {
+ 											Dictionary
+ 													.getConcept(Dictionary.HIV_RISK_FACTOR),
+ 											riskConcept, "", null, null,
+-											enpersonalrecordresultNew, null);
++											enpersonalrecordresultNew, null,visitSave);
+ 
+ 								}
+ 
+@@ -518,7 +518,7 @@ public class ImportPatientsListFragmentController {
+ 										Dictionary
+ 												.getConcept(Dictionary.IDU_PERSONAL_HISTORY),
+ 										idssubstituion, "", null, null,
+-										enpersonalrecordresultNew, null);
++										enpersonalrecordresultNew, null,visitSave);
+ 
+ 							}
+ 
+@@ -533,7 +533,7 @@ public class ImportPatientsListFragmentController {
+ 										Dictionary
+ 												.getConcept(Dictionary.IDU_NAME_PERSONAL_HISTORY),
+ 										idssubstituionvalue, "", null, null,
+-										enpersonalrecordresultNew, null);
++										enpersonalrecordresultNew, null, visitSave);
+ 
+ 							}
+ 							if (legacyData.get(29) != null) {
+@@ -547,7 +547,7 @@ public class ImportPatientsListFragmentController {
+ 										Dictionary
+ 												.getConcept(Dictionary.EMPLOYED),
+ 										employedvalue, "", null, null,
+-										enpersonalrecordresultNew, null);
++										enpersonalrecordresultNew, null, visitSave);
+ 							}
+ 
+ 							if (legacyData.get(30) != null) {
+@@ -561,7 +561,7 @@ public class ImportPatientsListFragmentController {
+ 										Dictionary
+ 												.getConcept(Dictionary.ALCOHOLIC_TYPE),
+ 										alcoholicvalue, "", null, null,
+-										enpersonalrecordresultNew, null);
++										enpersonalrecordresultNew, null, visitSave);
+ 							}
+ 
+ 							Encounter familyEncounter = new Encounter();
+@@ -596,7 +596,7 @@ public class ImportPatientsListFragmentController {
+ 										Dictionary
+ 												.getConcept(Dictionary.CIVIL_STATUS),
+ 										martalstatus, "", null, null,
+-										enfamilyrecordresultNew, null);
++										enfamilyrecordresultNew, null, visitSave);
+ 							}
+ 							Encounter drugEncounter = new Encounter();
+ 
+@@ -630,7 +630,7 @@ public class ImportPatientsListFragmentController {
+ 										Dictionary
+ 												.getConcept(Dictionary.DRUG_HISTORY_ART_RECEIVED),
+ 										drughistoryart, "", null, null,
+-										endrugrecordresultNew, null);
++										endrugrecordresultNew, null, visitSave);
+ 
+ 							}
+ 							if (legacyData.get(25) != null) {
+@@ -645,7 +645,7 @@ public class ImportPatientsListFragmentController {
+ 										Dictionary
+ 												.getConcept(Dictionary.DRUG_HISTORY_ART_RECEIVED_TYPE),
+ 										drughistoryarttype, "", null, null,
+-										endrugrecordresultNew, null);
++										endrugrecordresultNew, null, visitSave);
+ 
+ 							}
+ 							if (legacyData.get(26) != null) {
+@@ -658,7 +658,7 @@ public class ImportPatientsListFragmentController {
+ 										.setConcept(Dictionary
+ 												.getConcept(Dictionary.DRUG_HISTORY_GROUP));
+ 
+-								drugtreatmentGroup.setObsDatetime(new Date());
++								drugtreatmentGroup.setObsDatetime(endrugrecordresultNew.getEncounterDatetime());
+ 
+ 								// Added value coded as per default obs object
+ 								// format.
+@@ -687,7 +687,7 @@ public class ImportPatientsListFragmentController {
+ 											Dictionary
+ 													.getConcept(Dictionary.DRUG_HISTORY_ART_RECEIVED_PLACE),
+ 											place, "", null, null,
+-											endrugrecordresultNew, drugtreat);
++											endrugrecordresultNew, drugtreat, visitSave);
+ 								}
+ 
+ 								if (legacyData.get(27) != null) {
+@@ -701,7 +701,7 @@ public class ImportPatientsListFragmentController {
+ 											Dictionary
+ 													.getConcept(Dictionary.DRUG_REGIMEN_DRUG_HISTORY),
+ 											drugarv, "", null, null,
+-											endrugrecordresultNew, drugtreat);
++											endrugrecordresultNew, drugtreat, visitSave);
+ 								}
+ 
+ 								if (legacyData.get(28) != null) {
+@@ -718,7 +718,7 @@ public class ImportPatientsListFragmentController {
+ 											Dictionary
+ 													.getConcept(Dictionary.DRUG_DURATION),
+ 											null, null, null, dur,
+-											endrugrecordresultNew, drugtreat);
++											endrugrecordresultNew, drugtreat, visitSave);
+ 
+ 								}
+ 
+@@ -1483,7 +1483,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.lABORATORY_ORDER),
+ 												labOrder, "", null, null,
+-												enlabNew, null);
++												enlabNew, null, v);
+ 
+ 									}
+ 									if (!legacyData.get(39).isEmpty()) {
+@@ -1497,7 +1497,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.lABORATORY_ORDER),
+ 												labOrder, "", null, null,
+-												enlabNew, null);
++												enlabNew, null, v);
+ 
+ 									}
+ 									if (!legacyData.get(38).isEmpty()) {
+@@ -1511,7 +1511,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.lABORATORY_ORDER),
+ 												labOrder, "", null, null,
+-												enlabNew, null);
++												enlabNew, null, v);
+ 
+ 									}
+ 									if (!legacyData.get(8).isEmpty()) {
+@@ -1524,7 +1524,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.lABORATORY_ORDER),
+ 												labviralOrder, "", null, null,
+-												enlabNew, null);
++												enlabNew, null, v);
+ 
+ 									}
+ 
+@@ -1540,7 +1540,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.lABORATORY_ORDER),
+ 												labhaemoOrder, "", null, null,
+-												enlabNew, null);
++												enlabNew, null, v);
+ 
+ 									}
+ 									if (!legacyData.get(40).isEmpty()) {
+@@ -1554,7 +1554,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.lABORATORY_ORDER),
+ 												labcreatinineOrder, "", null,
+-												null, enlabNew, null);
++												null, enlabNew, null, v);
+ 
+ 									}
+ 									EncounterType labresultEnrollEncType = MetadataUtils
+@@ -1587,7 +1587,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.CD4_COUNT),
+ 												null, legacyData.get(7), null,
+-												cd4Count, enlabresultNew, null);
++												cd4Count, enlabresultNew, null, v);
+ 
+ 									}
+ 									if (!legacyData.get(37).isEmpty()) {
+@@ -1600,7 +1600,7 @@ public class ImportPatientsListFragmentController {
+ 														.getConceptByUuid(
+ 																"1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
+ 												null, labResult, null, null,
+-												enlabresultNew, null);
++												enlabresultNew, null, v);
+ 
+ 									}
+ 									if (!legacyData.get(38).isEmpty()) {
+@@ -1615,7 +1615,7 @@ public class ImportPatientsListFragmentController {
+ 														.getConceptByUuid(
+ 																"122858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
+ 												null, labResult, null, lab,
+-												enlabresultNew, null);
++												enlabresultNew, null, v);
+ 
+ 									}
+ 									if (!legacyData.get(39).isEmpty()) {
+@@ -1630,7 +1630,7 @@ public class ImportPatientsListFragmentController {
+ 														.getConceptByUuid(
+ 																"654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
+ 												null, labResult, null, lab,
+-												enlabresultNew, null);
++												enlabresultNew, null,v);
+ 
+ 									}
+ 									if (!legacyData.get(8).isEmpty()) {
+@@ -1644,7 +1644,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.HIV_VIRAL_LOAD),
+ 												null, labResult, null, lab,
+-												enlabresultNew, null);
++												enlabresultNew, null,v);
+ 
+ 									}
+ 									if (!legacyData.get(40).isEmpty()) {
+@@ -1659,7 +1659,7 @@ public class ImportPatientsListFragmentController {
+ 														.getConceptByUuid(
+ 																"790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
+ 												null, labResult, null, lab,
+-												enlabresultNew, null);
++												enlabresultNew, null,v);
+ 
+ 									}
+ 									EncounterType tbOIEnrollEncType = MetadataUtils
+@@ -1697,7 +1697,7 @@ public class ImportPatientsListFragmentController {
+ 										OIGroup.setConcept(Dictionary
+ 												.getConcept(Dictionary.OI_GROUP_TB_FORM));
+ 
+-										OIGroup.setObsDatetime(new Date());
++										OIGroup.setObsDatetime(entbOIresultNew.getEncounterDatetime());
+ 										// Added value coded as per default obs
+ 										// object
+ 										// format.
+@@ -1733,7 +1733,7 @@ public class ImportPatientsListFragmentController {
+ 																.getConcept(Dictionary.HIV_CARE_DIAGNOSIS),
+ 														oiConcept, "", null,
+ 														null, entbOIresultNew,
+-														o);
++														o,v);
+ 
+ 											}
+ 
+@@ -1754,7 +1754,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.TB_PATIENT),
+ 												tbStatus, "", null, null,
+-												entbOIresultNew, null);
++												entbOIresultNew, null,v);
+ 
+ 									}
+ 									if (!legacyData.get(11).isEmpty()) {
+@@ -1770,7 +1770,7 @@ public class ImportPatientsListFragmentController {
+ 														.getConcept(Dictionary.SITE_OF_TUBERCULOSIS_DISEASE),
+ 												tbDiseaseClassification, "",
+ 												null, null, entbOIresultNew,
+-												null);
++												null,v);
+ 										if (!legacyData.get(12).isEmpty()) {
+ 											if (!tbDiseaseClassification
+ 													.equals("42")) {
+@@ -1785,7 +1785,7 @@ public class ImportPatientsListFragmentController {
+ 																.getConcept(Dictionary.TB_SITE),
+ 														tbsiteClassification,
+ 														"", null, null,
+-														entbOIresultNew, null);
++														entbOIresultNew, null,v);
+ 											}
+ 										}
+ 									}
+@@ -1808,7 +1808,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.TUBERCULOSIS_DRUG_TREATMENT_START_DATE),
+ 												null, null, tbStartDate, null,
+-												entbOIresultNew, null);
++												entbOIresultNew, null,v);
+ 									}
+ 									if (!legacyData.get(14).isEmpty()) {
+ 
+@@ -1822,7 +1822,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.TOWNSHIP),
+ 												tbTownship, "", null, null,
+-												entbOIresultNew, null);
++												entbOIresultNew, null,v);
+ 									}
+ 									if (!legacyData.get(15).isEmpty()) {
+ 
+@@ -1834,7 +1834,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.TB_CLINIC_NAME),
+ 												null, tbclinicName, null, null,
+-												entbOIresultNew, null);
++												entbOIresultNew, null,v);
+ 									}
+ 									if (!legacyData.get(16).isEmpty()) {
+ 
+@@ -1848,7 +1848,7 @@ public class ImportPatientsListFragmentController {
+ 														.getConcept(Dictionary.TUBERCULOSIS_TREATMENT_NUMBER),
+ 												null, tbregistrationNumber,
+ 												null, null, entbOIresultNew,
+-												null);
++												null,v);
+ 									}
+ 									if (!legacyData.get(17).isEmpty()) {
+ 										Concept tbRegimen = Context
+@@ -1861,7 +1861,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.TB_FORM_REGIMEN),
+ 												tbRegimen, "", null, null,
+-												entbOIresultNew, null);
++												entbOIresultNew, null,v);
+ 
+ 									}
+ 									if (!legacyData.get(18).isEmpty()) {
+@@ -1877,7 +1877,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.TUBERCULOSIS_TREATMENT_OUTCOME),
+ 												tbOutcome, null, null, null,
+-												entbOIresultNew, null);
++												entbOIresultNew, null,v);
+ 									}
+ 
+ 									if (!legacyData.get(19).isEmpty()) {
+@@ -1909,7 +1909,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.TB_OUTCOME_DATE),
+ 												null, null, tbOutcomeDate,
+-												null, entbOIresultNew, null);
++												null, entbOIresultNew, null,v);
+ 									}
+ 									int flag = 0;
+ 
+@@ -1955,14 +1955,14 @@ public class ImportPatientsListFragmentController {
+ 															.getConcept(Dictionary.REASON_FOR_PROGRAM_DISCONTINUATION),
+ 													endOfFollowup, null, null,
+ 													null,
+-													enhivDiscontresultNew, null);
++													enhivDiscontresultNew, null,v);
+ 											handleOncePerPatientObs(
+ 													patient,
+ 													Dictionary
+ 															.getConcept(Dictionary.DEATH_DATE),
+ 													null, null, dateVisit,
+ 													null,
+-													enhivDiscontresultNew, null);
++													enhivDiscontresultNew, null,v);
+ 											flag = 1;
+ 
+ 										} else if (legacyData.get(20).equals(
+@@ -1973,7 +1973,7 @@ public class ImportPatientsListFragmentController {
+ 															.getConcept(Dictionary.REASON_FOR_PROGRAM_DISCONTINUATION),
+ 													endOfFollowup, null, null,
+ 													null,
+-													enhivDiscontresultNew, null);
++													enhivDiscontresultNew, null,v);
+ 											if (!legacyData.get(22).isEmpty()) {
+ 												String transferdto = legacyData
+ 														.get(22);
+@@ -1985,7 +1985,7 @@ public class ImportPatientsListFragmentController {
+ 														null, transferdto,
+ 														null, null,
+ 														enhivDiscontresultNew,
+-														null);
++														null, v);
+ 
+ 											}
+ 											handleOncePerPatientObs(
+@@ -1994,7 +1994,7 @@ public class ImportPatientsListFragmentController {
+ 															.getConcept(Dictionary.DATE_TRANSFERRED_OUT),
+ 													null, null, dateVisit,
+ 													null,
+-													enhivDiscontresultNew, null);
++													enhivDiscontresultNew, null, v);
+ 
+ 										} else {
+ 											handleOncePerPatientObs(
+@@ -2003,7 +2003,7 @@ public class ImportPatientsListFragmentController {
+ 															.getConcept(Dictionary.REASON_FOR_PROGRAM_DISCONTINUATION),
+ 													endOfFollowup, null, null,
+ 													null,
+-													enhivDiscontresultNew, null);
++													enhivDiscontresultNew, null, v);
+ 
+ 										}
+ 
+@@ -2118,7 +2118,7 @@ public class ImportPatientsListFragmentController {
+ 															.getConceptByUuid(
+ 																	"1252AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
+ 													endOfArt, null, null, null,
+-													enartDiscontresultNew, null);
++													enartDiscontresultNew, null,v);
+ 
+ 										}
+ 									}
+@@ -2166,13 +2166,13 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.YES),
+ 												null, null, null,
+-												enconsultresultNew, null);
++												enconsultresultNew, null,v);
+ 										handleOncePerPatientObs(
+ 												patient,
+ 												Dictionary
+ 														.getConcept(Dictionary.ART_SIDE_EFFECTS_VALUES),
+ 												sideffectsOfArt, null, null,
+-												null, enconsultresultNew, null);
++												null, enconsultresultNew, null,v);
+ 
+ 									}
+ 									if (!legacyData.get(31).isEmpty()) {
+@@ -2185,7 +2185,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.ART_ADHERENCE),
+ 												null, levelOfAdherence, null,
+-												null, enconsultresultNew, null);
++												null, enconsultresultNew, null,v);
+ 
+ 									}
+ 									if (!legacyData.get(41).isEmpty()) {
+@@ -2204,14 +2204,14 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.YES),
+ 												null, null, null,
+-												enconsultresultNew, null);
++												enconsultresultNew, null,v);
+ 										handleOncePerPatientObs(
+ 												patient,
+ 												Context.getConceptService()
+ 														.getConceptByUuid(
+ 																"c648f69b-7065-4255-9af2-6076348c87dc"),
+ 												temporaryreferal, null, null,
+-												null, enconsultresultNew, null);
++												null, enconsultresultNew, null,v);
+ 
+ 									}
+ 									if (!legacyData.get(28).isEmpty()) {
+@@ -2233,7 +2233,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.PERFORMANCE),
+ 												tbOutcome, null, null, null,
+-												entbOIresultNew, null);
++												entbOIresultNew, null,v);
+ 									}
+ 
+ 									if (!legacyData.get(29).isEmpty()) {
+@@ -2258,7 +2258,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.CURRENT_WHO_STAGE),
+ 												tbOutcome, null, null, null,
+-												entbOIresultNew, null);
++												entbOIresultNew, null,v);
+ 
+ 									}
+ 									EncounterType nextAppointEncType = MetadataUtils
+@@ -2305,7 +2305,7 @@ public class ImportPatientsListFragmentController {
+ 														.getConcept(Dictionary.RETURN_VISIT_DATE),
+ 												null, null, nextAppointDate,
+ 												null, ennextAppointresultNew,
+-												null);
++												null,v);
+ 									}
+ 
+ 									// For OI or PROPHYLAXIS
+@@ -2378,7 +2378,7 @@ public class ImportPatientsListFragmentController {
+ 																	.getConceptByUuid(
+ 																			"163022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+ 													prophylGroup
+-															.setObsDatetime(new Date());
++															.setObsDatetime(enotherresultNew.getEncounterDatetime());
+ 													prophylGroup
+ 															.setValueCoded(null);
+ 													prophylGroup
+@@ -2419,7 +2419,7 @@ public class ImportPatientsListFragmentController {
+ 																null,
+ 																null,
+ 																enotherresultNew,
+-																null);
++																null,v);
+ 													}
+ 
+ 													// IPT for Isoniazid
+@@ -2438,7 +2438,7 @@ public class ImportPatientsListFragmentController {
+ 																null,
+ 																null,
+ 																enotherresultNew,
+-																null);
++																null,v);
+ 													}
+ 
+ 													handleOncePerPatientObs(
+@@ -2448,7 +2448,7 @@ public class ImportPatientsListFragmentController {
+ 															oivalue, "", null,
+ 															null,
+ 															enotherresultNew,
+-															prophyl);
++															prophyl,v);
+ 
+ 													handleOncePerPatientObs(
+ 															patient,
+@@ -2457,7 +2457,7 @@ public class ImportPatientsListFragmentController {
+ 															null, "", null,
+ 															durationDouble,
+ 															enotherresultNew,
+-															prophyl);
++															prophyl,v);
+ 
+ 													// Capture Drug in Drug obs
+ 													// processed
+@@ -2500,7 +2500,7 @@ public class ImportPatientsListFragmentController {
+ 																			"163021AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+ 
+ 													oitreatmentGroup
+-															.setObsDatetime(new Date());
++															.setObsDatetime(enotherresultNew.getEncounterDatetime());
+ 
+ 													oitreatmentGroup
+ 															.setValueCoded(null);
+@@ -2532,7 +2532,7 @@ public class ImportPatientsListFragmentController {
+ 															oivalue, "", null,
+ 															null,
+ 															enotherresultNew,
+-															oitreat);
++															oitreat,v);
+ 
+ 													handleOncePerPatientObs(
+ 															patient,
+@@ -2541,7 +2541,7 @@ public class ImportPatientsListFragmentController {
+ 															null, "", null,
+ 															durationDouble,
+ 															enotherresultNew,
+-															oitreat);
++															oitreat,v);
+ 
+ 													// Capture Drug in Drug obs
+ 													// processed
+@@ -2598,7 +2598,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.WEIGHT_KG),
+ 												null, null, null, lab,
+-												enrecordvitalresultNew, null);
++												enrecordvitalresultNew, null,v);
+ 
+ 									}
+ 
+@@ -2613,7 +2613,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.HEIGHT_CM),
+ 												null, null, null, lab,
+-												enrecordvitalresultNew, null);
++												enrecordvitalresultNew, null,v);
+ 
+ 									}
+ 
+@@ -2660,7 +2660,7 @@ public class ImportPatientsListFragmentController {
+ 												Dictionary
+ 														.getConcept(Dictionary.PREGNANCY_STATUS),
+ 												pregstatus, "", null, null,
+-												enobstericrecordresultNew, null);
++												enobstericrecordresultNew, null,v);
+ 
+ 									}
+ 									if (!legacyData.get(43).isEmpty()) {
+@@ -2675,7 +2675,7 @@ public class ImportPatientsListFragmentController {
+ 																"5271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
+ 												familyplanningstatus, "", null,
+ 												null,
+-												enobstericrecordresultNew, null);
++												enobstericrecordresultNew, null,v);
+ 
+ 									}
+ 									if (!legacyData.get(43).isEmpty()) {
+@@ -2692,7 +2692,7 @@ public class ImportPatientsListFragmentController {
+ 														.getConcept(Dictionary.METHOD_OF_FAMILY_PLANNING),
+ 												familyplanningvalue, "", null,
+ 												null,
+-												enobstericrecordresultNew, null);
++												enobstericrecordresultNew, null,v);
+ 
+ 									}
+ 
+@@ -2786,11 +2786,17 @@ public class ImportPatientsListFragmentController {
+ 
+ 	protected void handleOncePerPatientObs(Patient patient, Concept question,
+ 			Concept newValue, String textValue, Date textDate,
+-			Double numnericValue, Encounter en, Obs obsGroup) {
++			Double numnericValue, Encounter en, Obs obsGroup, Visit v) {
+ 		Obs o = new Obs();
+ 		o.setPerson(patient);
+ 		o.setConcept(question);
+-		o.setObsDatetime(new Date());
++		if (en != null) {
++			o.setObsDatetime(en.getEncounterDatetime());
++		}
++		else{
++			o.setObsDatetime(v.getStartDatetime());
++		}
++		
+ 		o.setLocation(Context.getService(ChaiEmrService.class)
+ 				.getDefaultLocation());
+ 		if (newValue != null && !newValue.equals("")) {
+@@ -2817,13 +2823,18 @@ public class ImportPatientsListFragmentController {
+ 	}
+ 
+ 	protected void handleOncePerPatientObs(Patient patient, Concept question,
+-			Concept newValue, String textValue, Date textDate, Encounter en) {
++			Concept newValue, String textValue, Date textDate, Encounter en, Visit v) {
+ 
+ 		if (newValue != null) {
+ 			Obs o = new Obs();
+ 			o.setPerson(patient);
+ 			o.setConcept(question);
+-			o.setObsDatetime(new Date());
++			if (en != null) {
++				o.setObsDatetime(en.getEncounterDatetime());
++			}
++			else{
++				o.setObsDatetime(v.getStartDatetime());
++			}
+ 			o.setLocation(Context.getService(ChaiEmrService.class)
+ 					.getDefaultLocation());
+ 			if (newValue != null && !newValue.equals("")) {
+-- 
+2.8.1.windows.1
+

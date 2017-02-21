@@ -1,0 +1,98 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+
+	<div class="ke-form-header">
+		<table width="100%">
+			<tr>
+				<td>Date: <encounterDate id="encounter-date" showTime="true" /></td>
+				<td>Location: <encounterLocation default="GlobalProperty:chaiemr.defaultLocation" type="autocomplete" /></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="ke-form-content">
+		<table style="width: 100%">
+			<tr>
+				<th> </th>
+				<th>Test</th>
+				<th>Result</th>
+				<th>Date Collected (if not today)</th>
+			</tr>
+			<tr>
+				<td>01.</td>
+				<td>CD4 Count</td>
+				<td><obs conceptId="5497AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" showUnits="true" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+			</tr>
+			<tr>
+				<td>02.</td>
+				<td>CD4%</td>
+				<td><obs conceptId="730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" showUnits="true" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+
+			</tr>
+			<tr>
+				<td>03.</td>
+				<td>VDRL</td>
+				<td><obs conceptId="299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+
+			</tr>
+			<tr>
+				<td>04.</td>
+				<td>ALT</td>
+				<td><obs conceptId="654AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" showUnits="true" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+
+			</tr>
+			<tr>
+				<td>05.</td>
+				<td>Creatinine</td>
+				<td><obs conceptId="790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" showUnits="true" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+
+			</tr>
+			<tr>
+				<td>06.</td>
+				<td>HIV Viral Load</td>
+				<td><obs conceptId="856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" showUnits="true" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+
+			</tr>
+			<tr>
+				<td>07.</td>
+				<td>HIV DNA PCR</td>
+				<td><obs conceptId="1030AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+
+			</tr>
+			<tr>
+				<td>08.</td>
+				<td>Hemoglobin</td>
+				<td><obs conceptId="21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+
+			</tr>
+			<tr>
+				<td>09.</td>
+				<td>Urinalysis</td>
+				<td><obs conceptId="302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+
+			</tr>
+			<tr>
+				<td>10.</td>
+				<td>Malaria Smear</td>
+				<td><obs conceptId="32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" dateLabel="&lt;/td&gt;&lt;td&gt;"/></td>
+
+			</tr>
+		</table>
+	</div>
+	<div class="ke-form-footer">
+		<submit />
+	</div>
+
+</htmlform>

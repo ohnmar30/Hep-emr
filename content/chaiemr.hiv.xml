@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- ===================== Program ===================== -->
+
+	<bean id="chaiemr.hiv.program" class="org.openmrs.module.chaicore.program.ProgramDescriptor">
+		<property name="targetUuid" value="dfdc6d40-2f2f-463d-ba90-cc97350441a8" />
+		<property name="eligibilityCalculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.EligibleForHivProgramCalculation" />
+		<property name="defaultEnrollmentForm" ref="chaiemr.hiv.form.enrollment" />
+		<property name="defaultCompletionForm" ref="chaiemr.hiv.form.completion" />
+	<!-- 	<property name="visitForms">
+			<set>
+				<ref bean="chaiemr.common.form.tbScreening" />
+			</set>
+		</property> -->
+		<property name="reports">
+			<set>
+				
+		<!--	<ref bean="chaiemr.hiv.report.qi.adult.c.tx" />
+				<ref bean="chaiemr.hiv.report.qi.peds.c.tx" />
+				<ref bean="chaiemr.hiv.report.qi.adult.emtct" />
+				<ref bean="chaiemr.hiv.report.lostToFollowUp" />
+				<ref bean="chaiemr.hiv.report.onSecondLineArt" />
+				-->
+				<!--<ref bean="chaiemr.hiv.report.artCohortAnalysis.6" />
+				<ref bean="chaiemr.hiv.report.artCohortAnalysis.12" />
+				<ref bean="chaiemr.hiv.report.artCohortAnalysis.24" />
+				<ref bean="chaiemr.hiv.report.artCohortAnalysis.36" />-->
+			</set>
+		</property>
+		<property name="fragments">
+			<map>
+				<entry key="enrollment-summary" value="chaiemr:program/hiv/hivEnrollmentSummary" />
+				<entry key="care-panel" value="chaiemr:program/hiv/hivCarePanel" />
+				<entry key="completion-summary" value="chaiemr:program/hiv/hivCompletionSummary" />
+			</map>
+		</property>
+		<property name="order" value="100" />
+	</bean>
+
+	<!-- ===================== Identifiers ===================== -->
+
+	<!-- Unique Patient Number
+	<bean id="chaiemr.hiv.identifier.upn" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="05ee9cf4-7242-4a17-b4d4-00f707265c8a" />
+		<property name="order" value="50" />
+	</bean>
+ -->
+	<!-- ===================== Forms ===================== -->
+
+	<!-- HIV Enrollment -->
+	<bean id="chaiemr.hiv.form.enrollment" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="e4b506c1-7379-42b6-a374-284469cba8da" />
+		<property name="apps">
+			<set>
+			<!--<ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:hiv/hivEnrollment.html" />
+	</bean>
+
+	<!-- HIV Completion -->
+	<bean id="chaiemr.hiv.form.completion" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="e3237ede-fa70-451f-9e6c-0908bc39f8b9" />
+		<property name="apps">
+			<set>
+			<!--<ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/completion.png" />
+		<property name="htmlform" value="chaiemr:hiv/hivDiscontinuation.html" />
+	</bean>
+
+	<!-- MOH257 Face Page -->
+	<bean id="chaiemr.hiv.form.moh257FacePage" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="47814d87-2e53-45b1-8d05-ac2e944db64c" />
+		<property name="apps">
+			<set>
+			<!--<ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/moh257.png" />
+		<property name="htmlform" value="chaiemr:hiv/moh257FacePage.html" />
+	</bean>
+
+	<!-- MOH257 ARV Therapy -->
+	<bean id="chaiemr.hiv.form.moh257ArvTherapy" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="8f5b3ba5-1677-450f-8445-33b9a38107ae" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/moh257.png" />
+		<property name="htmlform" value="chaiemr:hiv/moh257ArvTherapy.html" />
+	</bean>
+
+	<!-- MOH257 Visit Summary -->
+	<bean id="chaiemr.hiv.form.moh257VisitSummary" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="23b4ebbd-29ad-455e-be0e-04aa6bc30798" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="autoCreateVisitTypeUuid" value="3371a4d4-f66f-4454-a86d-92c7b3da990c" />
+		<property name="icon" value="chaiui:forms/moh257.png" />
+		<property name="htmlform" value="chaiemr:hiv/moh257VisitSummary.html" />
+		<property name="order" value="201030" />
+	</bean>
+	
+
+	<!-- ===================== Reports ===================== -->
+
+<!-- 
+	<bean id="chaiemr.hiv.report.qi.adult.c.tx" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="496a24ee-77e1-4f5e-82ba-bc78f6943537" />
+		<property name="name" value="Quality Improvement - Adult C and Tx" />
+		<property name="description" value="Standards for HIV Care - Adult Care and Treatment" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:hiv/adultCareAndTreatment.xls" />
+	</bean>
+
+	<bean id="chaiemr.hiv.report.qi.peds.c.tx" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="2ce6f242-1e2c-11e4-9587-0bdfd164f2a9" />
+		<property name="name" value="Quality Improvement -paeds C and Tx" />
+		<property name="description" value="Standards for HIV Care" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+
+	<bean id="chaiemr.hiv.report.qi.adult.emtct" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="b15ae74a-1e2c-11e4-81bd-a3989c3214c1" />
+		<property name="name" value="Quality Improvement -EMTCT" />
+		<property name="description" value="Standards for HIV Care" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+
+	<bean id="chaiemr.hiv.report.lostToFollowUp" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="70bca1e5-7c68-4500-bfb8-0795549f35a4" />
+		<property name="name" value="Patients who are lost to followup" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.LostToFollowUpCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+
+	<bean id="chaiemr.hiv.report.onSecondLineArt" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="6e91a8da-fcab-47dc-86e7-dd92b925dd86" />
+		<property name="name" value="Patients on second line ART" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.art.OnSecondLineArtCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+
+
+
+	<bean id="chaiemr.hiv.report.artCohortAnalysis.6" class="org.openmrs.module.chaicore.report.HybridReportDescriptor">
+		<property name="targetUuid" value="f33a42d2-b400-11e3-9ecc-ef35e5682104" />
+		<property name="name" value="ART Cohort Analysis (6 months)" />
+		<property name="description" value="Definition of patient Attributes for ART Cohort Analysis for a cohort period of 6 months" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:art/artCohortAnalysis.xls" />
+		<property name="repeatingSection" value="sheet:1,row:11,dataset:artCohortAnalysis" />
+	</bean>
+
+	<bean id="chaiemr.hiv.report.artCohortAnalysis.12" class="org.openmrs.module.chaicore.report.HybridReportDescriptor">
+		<property name="targetUuid" value="8d968eb8-ce9f-11e3-8991-db9b985479a5" />
+		<property name="name" value="ART Cohort Analysis (12 months)" />
+		<property name="description" value="Definition of patient Attributes for ART Cohort Analysis for a cohort period of 12 months" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:art/artCohortAnalysis.xls" />
+		<property name="repeatingSection" value="sheet:1,row:11,dataset:artCohortAnalysis" />
+	</bean>
+
+	<bean id="chaiemr.hiv.report.artCohortAnalysis.24" class="org.openmrs.module.chaicore.report.HybridReportDescriptor">
+		<property name="targetUuid" value="ab02202a-ce9f-11e3-b04c-ff079c8e7f2c" />
+		<property name="name" value="ART Cohort Analysis (24 months)" />
+		<property name="description" value="Definition of patient Attributes for ART Cohort Analysis for a cohort period of 24 months" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:art/artCohortAnalysis.xls" />
+		<property name="repeatingSection" value="sheet:1,row:11,dataset:artCohortAnalysis" />
+	</bean>
+
+	<bean id="chaiemr.hiv.report.artCohortAnalysis.36" class="org.openmrs.module.chaicore.report.HybridReportDescriptor">
+		<property name="targetUuid" value="98de0f34-cea0-11e3-9ee7-974211375f56" />
+		<property name="name" value="ART Cohort Analysis (36 months)" />
+		<property name="description" value="Definition of patient Attributes for ART Cohort Analysis for a cohort period of 36 months" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:art/artCohortAnalysis.xls" />
+		<property name="repeatingSection" value="sheet:1,row:11,dataset:artCohortAnalysis" />
+	</bean>
+ -->
+</beans>

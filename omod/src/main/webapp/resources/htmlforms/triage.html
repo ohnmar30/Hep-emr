@@ -1,0 +1,133 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+              <style type="text/css">
+		table.tb {
+			background-color: #c7d8a7;
+			border: 1px solid black;
+			
+		}
+		table.tb1 {
+			border: 1px solid black;
+			vertical-align: baseline;
+			text-align: left;
+			background-color: #FFFFFF;
+		}
+		table.tb1 tr th,table.tb1 tr td{
+			border: 0;
+			padding: 5px;
+		}
+		
+
+	</style>
+	<script type="text/javascript">
+		function onWeightOrHeightChange() {
+			var display = '';
+			var weightKg = parseFloat(getValue('weight.value'));
+			var heightM = parseFloat(getValue('height.value')) / 100;
+			if (!isNaN(weightKg) &amp;&amp; !isNaN(heightM))  {
+				var bmi = weightKg / (heightM * heightM);
+				if (isNaN(bmi) || bmi &lt; 10 || bmi &gt; 50) {
+					display = 'Abnormal value. Were height and weight entered correctly?';
+				}
+				else {
+					display = bmi.toFixed(2);
+				}
+			}
+			jQuery('#calculated-bmi').html(display);
+		}
+
+		jQuery(function() {
+			getField('weight.value').change(onWeightOrHeightChange);
+			getField('height.value').change(onWeightOrHeightChange);
+			onWeightOrHeightChange();
+		});
+	</script>
+<script type="text/javascript">
+jq(document).ready(function(){
+	beforeSubmit.push(function() {
+		     var sys= parseInt(getValue('systolic.value'));
+		     var dias=  parseInt(getValue('diastolic.value'));
+		
+		if(sys &lt; dias)
+		{
+			alert("Systolic BP should not be less than Diastolic BP");
+			return false;
+		}
+	    return true;
+	     });
+	});
+</script>
+ 
+
+
+	<div class="ke-form-header">
+		<table width="100%" align="center" style="background-color: #c7d8a7">
+			<tr>
+				<td align="left">Date: <encounterDate id="encounter-date" showTime="true"/></td>
+				<td align="right">Location: <encounterLocation default="GlobalProperty:chaiemr.defaultLocation" type="autocomplete" /></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="ke-form-content" style="width:100%;   padding: 2px;">
+
+		<fieldset>
+			
+
+			<table style="background-color: #e8efdc"  align="center"  border="0" class="tb1" cellspacing="10" width="40%">
+				<tr>
+					<th  style="background-color: #c7d8a7"></th>
+					<th style="background-color: #c7d8a7"></th>
+					<th style="background-color: #c7d8a7;padding-left:40px"><b>Reference range</b></th>
+				</tr>
+				<tr>
+					<td>Temp</td>
+					<td><obs conceptId="5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" numeric="true"/> &#176;C</td>
+					<td style="padding-left:40px">36.5-37.2</td>
+				</tr>
+				<tr>
+					<td>Blood Pressure</td>
+					<td><obs id="systolic" conceptId="5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  /> / <obs id="diastolic" conceptId="5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  /> mmHg</td>
+					<td  style="padding-left:40px">&lt;140/90 mmHg</td>
+				</tr>
+				<tr>
+					<td>Pulse Rate</td>
+					<td><obs conceptId="5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /> /minute</td>
+					<td  style="padding-left:40px">60-100 per minute</td>
+				</tr>
+				<tr>
+					<td>Height</td>
+					<td><obs id="height" conceptId="5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />cm</td>
+				</tr>
+				<tr>
+					<td>Weight</td>
+					<td><obs id="weight" conceptId="5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />kg</td>
+				</tr>
+				
+				<tr>
+					<td>BMI</td>
+					<td><span id="calculated-bmi" class="value"></span></td>
+					<td style="padding-left:40px">18.5-24.9</td>
+				</tr>
+			</table>
+	 	</fieldset>
+
+	</div>
+
+	<div class="ke-form-footer">
+		<submit />
+	</div>
+
+</htmlform>

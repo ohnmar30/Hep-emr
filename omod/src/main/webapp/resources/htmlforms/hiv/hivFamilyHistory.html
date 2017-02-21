@@ -1,0 +1,215 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+<style>
+   input[type=button], button{
+	
+	background-color:Transparent;
+	}
+</style>
+<script type="text/javascript">
+jq(document).ready(function(){ 
+	if (getValue('status.value') == "135704" || getValue('status.value') == "1175") { 
+		jQuery('#tableFamily :input').prop('disabled', true);
+	}
+	else
+	{
+		jQuery('#tableFamily :input').prop('disabled', false);
+	}
+
+	jq("#status :input").change(function(){
+		if (getValue('status.value') == "135704" || getValue('status.value') == "1175") {
+			jQuery('#tableFamily :input').prop('disabled', true);
+		}
+		else
+		{
+			jQuery('#tableFamily :input').prop('disabled', false);
+		}
+	});
+	
+		if (getValue('result.value') == "664" || getValue('status.value') == "135704" || getValue('status.value') == "1175") {
+				
+			jQuery('#art :input').prop('disabled', true);
+		     jQuery('#artreg :input').prop('disabled', true);
+		}
+		else
+		{
+			jQuery('#art :input').prop('disabled', false);
+			jQuery('#artreg :input').prop('disabled', false);
+		}
+	jq("#result :input").change(function(){
+		if (getValue('result.value') == "664") {
+			jQuery('#art :input').prop('disabled', true);
+			jQuery('#artreg :input').prop('disabled', true);
+		}
+		else
+			{
+			jQuery('#art :input').prop('disabled', false);
+			jQuery('#artreg :input').prop('disabled', false);
+			}
+		
+	});
+	
+	var addImageLink = "/"+OPENMRS_CONTEXT_PATH+"/ms/uiframework/resource/chaiui/images/glyphs/revisit.png";
+	var removeImageLink = "/"+OPENMRS_CONTEXT_PATH+"/ms/uiframework/resource/chaiui/images/glyphs/close.png";
+
+	
+	// show fields with data 
+	fieldIndex = 10; 
+	j=1;
+	
+	document.getElementById(j+'-addImage').src = addImageLink;
+	document.getElementById(j+'-removeImage').src = removeImageLink;
+
+	while(document.getElementById("w"+fieldIndex).value!="" &amp;&amp; j &lt; 8){
+		jQuery('#'+j+'-toggleContainer').show();   
+		fieldIndex=fieldIndex+16;
+		if(document.getElementById("w"+fieldIndex).value != '')
+		{
+	$j('#'+j+'-removeEntry').toggle(false);
+	$j('#'+j+'-addEntry').toggle(false);
+		}
+		j++;
+
+		document.getElementById(j+'-addImage').src = addImageLink;
+		document.getElementById(j+'-removeImage').src = removeImageLink;
+
+	
+	}
+	//jQuery('#'+i+'-toggleContainer').show();
+	
+	$j('#1-removeEntry').remove();
+	$j('#8-addEntry').remove();
+	$j('#1-toggleContainer').show();
+	
+	
+	$j('button.addEntry').on("click", function(){
+		var correctedAddButtonId = parseFloat(this.id) + 1;      
+		var contentAddId = "#" + correctedAddButtonId + "-toggleContainer";
+		$j(contentAddId).toggle(true);      
+		$j('#' + this.id).toggle(false); 
+		$j('#' + parseFloat(this.id) + '-removeEntry').toggle(false);
+		
+		if(correctedAddButtonId &lt; 8) {
+			document.getElementById(correctedAddButtonId+'-addImage').src = addImageLink;
+		}
+		if(correctedAddButtonId &gt; 1) {
+			document.getElementById(correctedAddButtonId+'-removeImage').src = removeImageLink;
+		}
+		
+		
+		return false;});    
+	 
+	$j('button.removeEntry').on("click", function(){ 
+		var correctedRemoveButtonId = parseFloat(this.id) - 1;
+		var contentAddId = "#" + parseFloat(this.id) + "-toggleContainer";
+		$j(contentAddId).toggle(false);
+		$j( ':input:not(:button)', contentAddId).val([]);
+		$j('#' + correctedRemoveButtonId + '-addEntry').toggle(true);
+		$j('#' + correctedRemoveButtonId + '-removeEntry').toggle(true);
+		
+		if(correctedRemoveButtonId &gt; 1) {
+			document.getElementById(correctedRemoveButtonId+'-removeImage').src = removeImageLink;
+		}
+		
+		return false;
+		});
+	
+	
+});
+</script>
+
+	<style>
+		td, tr, table{
+		  
+			padding:3px;
+		}
+		select{
+			padding:4px;
+			border-radius: 2px;
+			width:150px;
+		}
+		
+    </style>
+
+	<!-- Encounter date, provider and location are not relevant for CE forms -->
+	<div style="display:none">
+		<encounterDate id="encounter-date" showTime="true" />
+		<encounterLocation default="GlobalProperty:chaiemr.defaultLocation" />
+	</div>
+	
+	
+	<div class="ke-form-content" style="select {   width: 40%;   padding: 2px;}" >
+				
+				<br/>
+				<table style="background-color: #c7d8a7">
+					<tr>
+						<td><strong>Marital Status?</strong></td>
+						<td><obs id="status" conceptId="1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/></td>
+					</tr>
+				</table>
+				<br/>
+				<div id="tableFamily">
+				<table  width="100%" style="background-color: #e8efdc"  align="center"  cellspacing="10">
+					<tr style="background-color: #c7d8a7">
+						<th colspan="1" width="350px">Name of the Spouse/Children</th>
+						<th colspan="1" width="170px">Relationship</th>
+						<th colspan="1" width="300px">Age</th>
+						<th colspan="1" width="150px">Gender</th>
+						<th colspan="1" width="200px">HIV Result<br/>(+/-/Unknown)</th>
+						<th colspan="1" width="300px">ART(Y/N)</th>
+						<th colspan="1" width="300px">ART Registration Number</th>
+						<th colspan="1" width="100px" ></th>
+						
+					</tr>
+					<repeat>
+						<template>
+							<obsgroup groupingConceptId="160593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+								<div id="{n}-toggleContainer" style="display:none;">
+									<table  width="100%">
+										<tr  style="border:1px solid black;background-color: #e8efdc">
+											<td colspan="1" width="350px"><obs conceptId="2319ebba-7e1e-47e9-9508-d0f6345af70d" labetText=" " size="30"/></td>
+											<td colspan="1" width="170px"><obs conceptId="163120"  answerLabel="Relation" style="dropdown"/></td>
+											<td colspan="1" width="300px"><obs conceptId="160617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Age"/><obs conceptId="1732AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  style="dropdown"  /> </td>
+											<td colspan="1" width="150px"><obs conceptId="1533AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+											<td colspan="1" width="200px"><obs id="result" conceptId="1169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+											<td colspan="1" width="300px"><obs id="art"   conceptId="72ef6301-fbbb-4c44-8e5f-ec27f33afa22" /></td>
+											<td colspan="1" width="300px"><obs id="artreg" conceptId="1420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" /></td>
+											<td colspan="1" width="100px"><button id="{n}-addEntry" class="addEntry"><img id="{n}-addImage" width="20" height="20" /></button>
+												<button id="{n}-removeEntry" class="removeEntry"><img id="{n}-removeImage" width="20" height="20" /></button>
+                                             </td>
+										</tr>
+									</table>	
+								</div>
+							</obsgroup>	
+						</template>
+						<render n="1" concept=" "/>
+						<render n="2" concept=" "/>
+						<render n="3" concept=" "/>
+						<render n="4" concept=" "/>
+						<render n="5" concept=" "/>
+						<render n="6" concept=" "/>
+						<render n="7" concept=" "/>
+						<render n="8" concept=" "/>
+					</repeat>	
+
+				</table>
+				</div>
+	</div>
+
+	<div class="ke-form-footer">
+		<submit />
+	</div>
+
+</htmlform>

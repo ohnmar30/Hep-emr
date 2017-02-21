@@ -1,0 +1,1 @@
+${ ui.includeFragment("chaiemr", "report/getHalfYearlyReport",[halfYearly:halfYearly]) }

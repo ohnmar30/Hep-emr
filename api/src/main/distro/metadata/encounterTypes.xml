@@ -1,0 +1,13 @@
+<!-- Patient identifier types used by ChaiEMR, listed A-Z -->
+<refs type="EncounterType">
+	<ref key="TB_SCREENING" uuid="ed6dacc9-0827-4c82-86be-53c0d8c449be" />
+	<ref key="DISPENSE_DRUG" uuid="0daa76ea-9c7d-49c9-8ea0-21d3d079f807" />
+	
+	<ref key="HCV_ENROLLMENT" uuid="ca819871-00b2-4458-9649-91e350544e4f" />
+	<ref key="SCREENING_REGISTRATION" uuid="f6b9c4b9-28c2-4f85-957b-909ca6bc6e60" />
+	<ref key="SCREENING_RESULTS" uuid="59fca8b5-18f9-447f-a4d6-cb472bedf4d7" />
+	<ref key="VIRAL_LOAD_ENROLLMENT" uuid="7b9232f1-d665-4812-8627-150f47f01318" />
+	<ref key="HCV_TREATMENT" uuid="e93797be-4412-4a31-8ae9-f1b8328f62a3" />
+	<ref key="HCV_FOLLOWUP" uuid="987bf3bf-5023-40e5-802c-8a50af89a842" />
+	<ref key="HCV_DISCONTINUATION" uuid="f7b00f63-5570-42d3-94bd-8714d56e834c" />
+</refs>

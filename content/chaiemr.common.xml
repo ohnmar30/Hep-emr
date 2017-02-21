@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- ===================== Configurations ===================== -->
+
+	<bean id="chaiemr.config.form" class="org.openmrs.module.chaicore.form.FormConfiguration">
+		<property name="commonPatientForms">
+			<set>
+				<ref bean="chaiemr.common.form.hivFamilyHistory" />
+				<ref bean="chaiemr.common.form.obstetricHistory" />
+				<ref bean="chaiemr.common.form.drugHistory" />
+				<ref bean="chaiemr.common.form.personalHistory" />
+				<!--<ref bean="chaiemr.common.form.medicalAndSurgicalHistory" />-->
+			</set>
+		</property>
+		<property name="commonVisitForms">
+			<set>
+				<ref bean="chaiemr.common.form.triage" />
+				<ref bean="chaiemr.hiv.form.consultationEncounter" />
+				<ref bean="chaiemr.common.form.tbScreening" />
+				<ref bean="chaiemr.common.form.labOrders" />
+				<ref bean="chaiemr.common.form.otherMedications" />
+				<ref bean="chaiemr.common.form.progressNote" />
+  			<!--<ref bean="chaiemr.common.form.clinicalEncounter" /> -->
+				<ref bean="chaiemr.common.form.labResults" /> 
+				<ref bean="chaiemr.common.form.drugOrders" />
+			</set>
+		</property>
+	</bean>
+
+	<bean id="chaiemr.config.report" class="org.openmrs.module.chaicore.report.ReportConfiguration">
+		<property name="commonReports">
+			<set>
+	 	<!--
+				<ref bean="chaiemr.common.report.moh711" />
+				
+				<ref bean="chaiemr.common.report.moh731" />
+				<ref bean="chaiemr.common.report.dhis2" />
+				<ref bean="chaiemr.common.report.recordedDeceased" /> 
+				
+				-->
+				<!--<ref bean="chaiemr.common.report.rdqaReport" />-->
+				<ref bean="chaiemr.common.report.allPatients" />
+				<ref bean="chaiemr.hiv.report.onSecondLineArt" />
+                <ref bean="chaiemr.common.report.missedAppointment" />
+                <ref bean="chaiemr.hiv.report.dueForCd4" />
+                <ref bean="chaiemr.hiv.report.decliningCd4" />
+                <ref bean="chaiemr.hiv.report.eligibleForArt" />
+                <ref bean="chaiemr.hiv.report.neverTakenCtxOrDapsone" />
+                <ref bean="chaiemr.tb.report.inProgram" />
+                <ref bean="chaiemr.hiv.report.neverScreenedForTb" />
+                
+                <ref bean="chaiemr.hiv.report.patientsWhoHaveClinicalFailure" />
+				<ref bean="chaiemr.hiv.report.patientsWhoHaveImmunologicalFailure" />
+				<ref bean="chaiemr.hiv.report.patientsWhoHaveVirologicalFailure" />
+				
+				<!-- Indicator Report -->
+				<ref bean="chaiemr.hiv.report.AllIndicatorReport" />
+				
+				
+				
+				<!--<ref bean="chaiemr.hiv.report.HIVReceivingCTXWhoAreNotOnART" />
+				<ref bean="chaiemr.hiv.report.treatmentTBCasesAmongPLHIV" />
+				<ref bean="chaiemr.hiv.report.incidentTBCasesAmongPLHIV" />
+				<ref bean="chaiemr.hiv.report.newlyEnrolledIsoniazid" />
+				<ref bean="chaiemr.hiv.report.enrolledInHivTBStatedLastVist" /> -->
+				<!-- NAP monthly report -->
+				<ref bean="chaiemr.common.report.artAdultmonthlyReport"/>
+				<ref bean="chaiemr.common.report.artChildmonthlyReport"/>
+				
+				
+				<!--<ref bean="chaiemr.hiv.enrolledInHivTBStatedLastVist.12month" />
+				<ref bean="chaiemr.hiv.report.HIVReceivingCTXWhoAreNotOnARTTwelveMonth" />
+				<ref bean="chaiemr.hiv.report.newlyEnrolledIsoniazidYear" />
+				<ref bean="chaiemr.hiv.report.incidentTBCasesAmongPLHIVTwelveMonth" /> -->
+		
+				<ref bean="chaiemr.hiv.report.patientsDueForViralLoad" />
+				<ref bean="chaiemr.hiv.report.listOfARTRestartPatients" />
+				
+				<ref bean="chaiemr.hiv.report.listOfReturnedFromLossToFollowup" />
+				
+			
+				<!--<ref bean="chaiemr.common.report.patientsNotInART"/>
+				<ref bean="chaiemr.common.report.opportunisticInfections"/>
+				<ref bean="chaiemr.common.report.patientsRestartedART"/>
+				
+				<ref bean="chaiemr.common.report.patientsTBreceivedART"/>
+				
+				<ref bean="chaiemr.common.report.levelOfAdherence"/>
+				
+				<ref bean="chaiemr.common.report.newHIVPatientEnrolled"/>
+				
+				
+				 <ref bean="chaiemr.common.report.artDrug" />
+				
+			
+				<ref bean="chaiemr.common.report.labReport"/>-->
+			    
+				<!--<ref bean="chaiemr.common.report.drugReport"/>-->
+				<!--<ref bean="chaiemr.common.report.patientOutcomeART"/>-->
+				<!--<ref bean="chaiemr.common.report.hivCohortAnalysis.6"/>-->
+				
+			</set>
+		</property>
+	</bean>
+
+
+
+	<bean id="chaiemr.config.regimen" class="org.openmrs.module.chaiemr.regimen.RegimenConfiguration">
+		<property name="definitionsPath" value="regimens.xml" />
+	</bean>
+	
+	<bean id="chaiemr.config.regimenProerty" class="org.openmrs.module.chaiemr.regimen.RegimenPropertyConfiguration">
+		<property name="definitionsPath" value="regimenProperties.xml" />
+	</bean>
+
+	<bean id="chaiemr.config.lab" class="org.openmrs.module.chaicore.lab.LabConfiguration">
+		<property name="commonCatalogs">
+			<set>
+				<ref bean="chaiemr.common.lab.standardcatalog" />
+			</set>
+		</property>
+	</bean>
+
+	<!-- ===================== Identifiers ===================== -->
+
+	<!-- National Identification Number -->
+	<bean id="chaiemr.common.identifier.national" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="49af6cdc-7968-4abb-bf46-de10d7f4859f" />
+		<property name="order" value="100" />
+	</bean>
+	
+	<!-- Patient Clinic Number -->
+	<bean id="chaiemr.common.identifier.pcn" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="b4d66522-11fc-45c7-83e3-39a1af21ae0d" />
+		<property name="order" value="200" />
+	</bean>
+	
+	
+	<!--MASTER PATIENT INDEX --> 
+	<bean id="chaiemr.common.identifier.masterPatientIndex" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="d59d0f67-4a05-4e41-bfad-342da68feb6f" />
+		<property name="order" value="100" />
+	</bean>
+
+	<!--REGISTRATION NUMBER --> 
+	<bean id="chaiemr.common.identifier.registrationNumber" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="3e5493e8-e76e-4d3f-a166-9a88b40747fa" />
+		<property name="order" value="100" />
+	</bean>
+	
+	<!--HEPC REGISTRATION NUMBER --> 
+	<bean id="chaiemr.common.identifier.hepCRegistrationNumber" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="9e10c5d6-a58c-4236-8b65-b6b932beff1a" />
+		<property name="order" value="100" />
+	</bean>
+	
+	<!-- System generated Patient Id --> 
+	<bean id="chaiemr.common.identifier.systemPatientId" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="90e2e35a-ce2a-43d5-8790-2dc139d7ace1" />
+		<property name="order" value="100" />
+	</bean>
+
+
+	
+	<!-- Old Identification Number -->
+	<bean id="chaiemr.common.identifier.old" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="8d79403a-c2cc-11de-8d13-0010c6dffd0f" />
+		<property name="order" value="300" />
+	</bean>
+
+	<!-- OpenMRS ID -->
+	<bean id="chaiemr.common.identifier.mrn" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="dfacd928-0370-4315-99d7-6ec1c9f7ae76" />
+	</bean>
+
+	<!-- ===================== Forms ===================== -->
+
+	<!-- Family History -->
+	<bean id="chaiemr.common.form.hivFamilyHistory" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="7efa0ee0-6617-4cd7-8310-9f95dfee7a82" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.clinician" />
+				<!-- <ref bean="chaiemr.app.chart" /> -->
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/family_history.png" />
+		<property name="htmlform" value="chaiemr:hiv/hivFamilyHistory.html" />
+		<property name="order" value="100010" />
+	</bean>
+
+	<!-- Obstetric History -->
+	<bean id="chaiemr.common.form.obstetricHistory" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="8e4e1abf-7c08-4ba8-b6d8-19a9f1ccb6c9" />
+		<property name="gender" value="FEMALE" />
+		<property name="apps">
+			<set>
+				<!--<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<!-- <ref bean="chaiemr.app.chart" /> -->
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/obstetric.png" />
+		<property name="htmlform" value="chaiemr:obstetricHistory.html" />
+		<property name="order" value="100020" />
+	</bean>
+	
+	<bean id="chaiemr.common.form.drugHistory" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="5286ae88-85bb-46e8-a2f7-6361f463ffd4" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.clinician" />
+				<!--<ref bean="chaiemr.app.chart" />-->
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:hiv/hivDrugHistory.html" />
+	</bean>
+	
+	<bean id="chaiemr.common.form.personalHistory" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="d1db31d0-b415-4788-a233-e4000bf4d108" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:hiv/hivPersonalHistory.html" />
+	</bean>
+	
+
+	<!-- Triage -->
+	<bean id="chaiemr.common.form.triage" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="37f6bd8d-586a-4169-95fa-5781f987fe62" />
+		<property name="apps">
+			<set>
+				<!-- <ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:triage.html" />
+		<property name="order" value="200010" />
+	</bean>
+
+	<!-- Clinical Encounter-->
+	<bean id="chaiemr.common.form.clinicalEncounter" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="e958f902-64df-4819-afd4-7fb061f59308" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:clinicalEncounter.html" />
+		<property name="order" value="200020" />
+	</bean>
+  
+	<!-- Lab Order -->
+	<bean id="chaiemr.common.form.labOrders" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="740308bd-1fe1-43b4-8b7d-51e1d513e205" />
+		<property name="apps">
+			<set>
+				<!--<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/labresults.png" />
+		<property name="htmlform" value="chaiemr:labOrders.html" />
+		<property name="order" value="200013" />
+	</bean>
+
+	<!-- Drug Dispensing form -->
+	<bean id="chaiemr.common.form.drugOrders" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="20733cb5-b849-4bfd-a9fa-58d21c899037" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.dispensary" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:dispenseDrug.html" />
+		<property name="order" value="200018" />
+	</bean>
+	
+	<!-- Lab Results -->
+
+	<bean id="chaiemr.common.form.labResults" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="7e603909-9ed5-4d0c-a688-26ecb05d8b6e" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.intake" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/labresults.png" />
+		<property name="htmlform" value="chaiemr:labResults.html" />
+		<property name="order" value="200017" />
+	</bean>
+
+
+	<!-- Consultation form -->
+	<bean id="chaiemr.hiv.form.consultationEncounter" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="bd598114-4ef4-47b1-a746-a616180ccfc0" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:hiv/hivClinicalEncounterAddendum.html" />
+		<property name="order" value="200011" />
+	</bean>
+
+	<!-- Other Medications -->
+	<bean id="chaiemr.common.form.otherMedications" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="d4ff8ad1-19f8-484f-9395-04c755de9a47" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:otherMedications.html" />
+		<property name="order" value="200015" />
+	</bean>
+
+	<!-- Progress Note -->
+	<bean id="chaiemr.common.form.progressNote" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="0038a296-62f8-4099-80e5-c9ea7590c157" />
+		<property name="apps">
+			<set>
+				<!--<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:progressNote.html" />
+		<property name="order" value="200016" />
+	</bean>
+
+	<!-- TB Screening -->
+	<bean id="chaiemr.common.form.tbScreening" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="59ed8e62-7f1f-40ae-a2e3-eabe350277ce" />
+		<property name="apps">
+			<set>
+			<!--<ref bean="chaiemr.app.intake" /> -->	
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:tb/tbScreening.html" />
+		<property name="order" value="200012" />
+	</bean>
+
+	<!-- Medical and Surgical History -->
+	<!--<bean id="chaiemr.common.form.medicalAndSurgicalHistory" class="org.openmrs.module.chaicore.form.FormDescriptor">
+		<property name="targetUuid" value="4f3c9bd8-c117-4a5e-a7eb-12a627c29de6" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" />
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:medicalAndSurgicalHistory.html" />
+		<property name="order" value="100030" />
+	</bean>-->
+
+	<!-- ===================== Reports ===================== -->
+	<bean id="chaiemr.hiv.report.dueForCd4" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="9227c34f-18b6-4c93-844e-5732572d5125" />
+		<property name="name" value="Patients due for CD4 test" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.NeedsCd4TestCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+	
+	<bean id="chaiemr.common.report.missedAppointment" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="d1e3d16f-74d8-47c7-9475-849e9d82408b" />
+		<property name="name" value="Patients who missed their last appointment" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.MissedLastAppointmentCalculation" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+	
+	<bean id="chaiemr.hiv.report.decliningCd4" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="e6c82faf-0617-428b-8a24-bc0f94a4b257" />
+		<property name="name" value="Patients with declining CD4" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.DecliningCd4Calculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+	
+	<bean id="chaiemr.hiv.report.eligibleForArt" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="e20f9d12-1df4-4e50-9002-294244457c6f" />
+		<property name="name" value="Patients eligible for ART" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.art.EligibleForArtCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+		
+	<bean id="chaiemr.hiv.report.neverTakenCtxOrDapsone" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="8eda25f8-a3aa-401c-ab88-49f6f2021a39" />
+		<property name="name" value="Patients who have never taken CTX or Dapsone" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.NeverTakenCtxOrDapsoneCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+	
+	<bean id="chaiemr.tb.report.inProgram" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="ed001a42-8462-49d3-8e9d-5c7bedc1806d" />
+		<property name="name" value="Patients in TB program" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.tb.InTbProgramCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.tb.identifier.districtRegistration" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+	
+	<bean id="chaiemr.hiv.report.neverScreenedForTb" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="55038932-2c87-4295-86d1-802e623424ea" />
+		<property name="name" value="Patients who have never been screened for TB" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.NeverScreenedForTbCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>			
+	
+	
+
+	<bean id="chaiemr.common.report.moh711" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="c546b523-83f8-43ba-a979-e0631f0a5364" />
+		<property name="name" value="MOH 711" />
+		<property name="description" value="National Integrated Form for Reproductive Health, HIV/AIDS, Malaria, TB and Child Nutrition" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+<!-- 
+	<bean id="chaiemr.common.report.moh731" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="dcd7d647-ea54-45a9-9d56-f56fc37c2b87" />
+		<property name="name" value="MOH 731" />
+		<property name="description" value="Comprehensive HIV/AIDS Facility Reporting Form - NASCOP" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:moh731.xls" />
+	</bean>
+
+	<bean id="chaiemr.common.report.artDrug" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="5609a402-94b2-11e3-9ca9-93351facf9dd" />
+		<property name="name" value="ART Drugs" />
+		<property name="description" value="Monthly ART Drug Report" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:artDrugs.xls" />
+	</bean>
+
+	<bean id="chaiemr.common.report.dhis2" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="e8f317ea-ebb9-11e3-abe5-7f8b2039b9d7" />
+		<property name="name" value="DHIS 2 File Generator" />
+		<property name="description" value="DHIS Compatible Report" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:dhis2.xls" />
+	</bean>
+
+	<bean id="chaiemr.common.report.recordedDeceased" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="e7736868-125e-11e4-ab7a-a327f879345f" />
+		<property name="name" value="Patients to be marked as deceased" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.RecordedDeceasedCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+ -->
+	<bean id="chaiemr.common.report.allPatients" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="9e2ed586-130b-11e4-929a-8746415b715a" />
+		<property name="name" value="All Patients List" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.AllPatientsCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.common.identifier.systemPatientId" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+	
+	<bean id="chaiemr.hiv.report.onSecondLineArt" class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="6e91a8da-fcab-47dc-86e7-dd92b925dd86" />
+		<property name="name" value="Patients on second line ART" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.art.OnSecondLineArtCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.common.identifier.systemPatientId" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+	
+		<!-- NEW REPORTS 2016/02/10 -->
+
+	
+	<bean id="chaiemr.hiv.report.patientsDueForViralLoad"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="d3918592-4cdd-48db-a738-cc9da9c1ce25" />
+		<property name="name" value="Due for Viral load" />
+		<property name="calculation" value="org.openmrs.module.chaiemr.calculation.library.hiv.PatientsDueForViralLoadCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>
+	
+	<bean id="chaiemr.hiv.report.listOfARTRestartPatients"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="ba0c5b7e-1a1c-4025-9593-bf3ce7e913c7" />
+		<property name="name" value="ART re-start" />
+		<property name="calculation"
+			value="org.openmrs.module.chaiemr.calculation.library.hiv.ListOfARTRestartPatientsCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>
+	
+	<bean id="chaiemr.hiv.report.listOfReturnedFromLossToFollowup"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="e86dab34-8c17-4df5-9592-115b7b7cdd54" />
+		<property name="name" value="Returned from loss to follow-up" />
+		<property name="calculation"
+			value="org.openmrs.module.chaiemr.calculation.library.hiv.ListOfReturnedFromLossToFollowupCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>
+	
+	<bean id="chaiemr.hiv.report.patientsWhoHaveClinicalFailure"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="ce02e782-abbf-4714-b822-cebe3f9bb2f5" />
+		<property name="name" value="Clinical failure" />
+		<property name="calculation"
+			value="org.openmrs.module.chaiemr.calculation.library.hiv.PatientsWhoHaveClinicalFailureCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>
+
+	<bean id="chaiemr.hiv.report.patientsWhoHaveImmunologicalFailure"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="078db83d-a307-40b0-97a4-5290017d7e65" />
+		<property name="name" value="Immunological failure" />
+		<property name="calculation"
+			value="org.openmrs.module.chaiemr.calculation.library.hiv.PatientsWhoHaveImmunologicalFailureCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>
+
+	<bean id="chaiemr.hiv.report.patientsWhoHaveVirologicalFailure"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="19bb355e-ed28-44fc-a445-827c340f950e" />
+		<property name="name" value="Virological failure" />
+		<property name="calculation"
+			value="org.openmrs.module.chaiemr.calculation.library.hiv.PatientsWhoHaveVirologicalFailureCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>
+	
+	<!-- Indicator Report -->
+	<bean id="chaiemr.hiv.report.AllIndicatorReport"
+		class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="7e0141c1-a82f-41fe-bcb7-1243fa5c6207" />
+		<property name="name" value="Indicator Reports" />
+		<property name="description" value="Combined report for all indicator report" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		
+	</bean>
+	<!--
+	<bean id="chaiemr.hiv.report.HIVReceivingCTXWhoAreNotOnART"
+		class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="9ec57ad3-a513-4ff6-93ce-6c7b27e130f0" />
+		<property name="name" value="PLHIV receiving CTX" />
+		<property name="description" value="Number of people living with HIV receiving cotrimoxazole prophylaxis who are not on ART" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		
+	</bean>
+	 <bean id="chaiemr.hiv.report.treatmentTBCasesAmongPLHIV"
+		class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="c33409d0-793e-4cc9-8b4a-f1bb25999ea5" />
+		<property name="name" value="PLHIV on TB treatment" />
+		<property name="description" value=" Number of HIV-infected patients with incident TB diagnosed and started on TB treatment during the reporting period." />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+		<bean id="chaiemr.hiv.report.incidentTBCasesAmongPLHIV"
+		class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="be7d3272-2a03-4b75-9154-8efa238dc9f0" />
+		<property name="name" value="PLHIV with incident TB" />
+		<property name="description" value=" Number of incident TB cases among PLHIV" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+		<bean id="chaiemr.hiv.report.newlyEnrolledIsoniazid"
+		class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="f0216cf8-812f-4005-b909-8ead2ff9aea2" />
+		<property name="name" value="PLHIV on IPT " />
+		<property name="description" value=" Number of adults and children newly enrolled in HIV care (pre-ART and ART) who also start isoniazid preventive therapy treatment during the reporting period" />
+	    <property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+		<bean id="chaiemr.hiv.report.enrolledInHivTBStatedLastVist"
+		class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="c61b334d-ffc0-41e9-9102-960e1aceb5f8" />
+		<property name="name" value="PPLHIV assessed for TB" />
+		<property name="description" value="Number of adults and children enrolled in HIV care who had TB status assessed and recorded during their last" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+	-->
+    <!--  <bean id="chaiemr.hiv.report.HIVReceivingCTXWhoAreNotOnARTTwelveMonth"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="2813c39c-2807-4bcd-8d59-bf29df3eab6b" />
+		<property name="name"
+			value="PLHIV receiving CTX (12 month)" />
+		<property name="calculation"
+			value="org.openmrs.module.chaiemr.calculation.library.hiv.HIVReceivingCTXWhoAreNotOnARTTwelveMonthCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>-->
+	<!--<bean id="chaiemr.hiv.report.incidentTBCasesAmongPLHIVTwelveMonth"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="af024e8c-dd4b-43b3-a4d9-d1785bb19e29" />
+		<property name="name"
+			value="PLHIV on TB treatment (12 month)" />
+		<property name="calculation"
+			value="org.openmrs.module.chaiemr.calculation.library.hiv.TBCasesAmongPLHIVTwelveMonthCalculation" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>-->
+	<!--  <bean id="chaiemr.hiv.report.newlyEnrolledIsoniazidYear"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="c92f9abf-14e4-402a-bd76-9d91a13e6b9e" />
+		<property name="name"
+			value="PLHIV on IPT (12 month)" />
+		<property name="calculation"
+			value="org.openmrs.module.chaiemr.calculation.library.hiv.NewlyEnrolledIsoniazidCalculationYearly" />
+		 <property name="description" value="Number of people living with HIV receiving cotrimoxazole prophylaxis who are not on ART (12 month)" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>-->
+	<!--<bean id="chaiemr.hiv.enrolledInHivTBStatedLastVist.12month"
+		class="org.openmrs.module.chaicore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="915d7ecf-4d60-468d-836d-553fc3415a27" />
+		<property name="name"
+			value="PPLHIV assessed for TB (12 months)" />
+		<property name="calculation"
+			value="org.openmrs.module.chaiemr.calculation.library.hiv.EnrolledInHivTBStatedLastVist12Month" />
+		<property name="displayIdentifier" ref="chaiemr.hiv.identifier.upn" />
+		<property name="apps">
+			<set>
+				<ref bean="chaiemr.app.reports" />
+			</set>
+		</property>
+	</bean>-->
+
+
+
+	<!-- Indicator Reports -->
+	<!--<bean id="chaiemr.common.report.patientsNotInART" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="6dac466d-394b-465a-87e3-8861efafe0b4" />
+		<property name="name" value="Eligible for ART" />
+		<property name="description" value="It details about the total No. of medically eligible patients currently remaining on waiting list for ART at the end of this month*" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		
+	</bean>
+	
+	<bean id="chaiemr.common.report.opportunisticInfections" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="4aa82432-56c9-49f0-8439-cfd029ba64c9" />
+		<property name="name" value="Treated for OI" />
+		<property name="description" value="It details total No. of patients treated for  Opportunistic Infections during this month" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+	</bean>
+	
+	<bean id="chaiemr.common.report.patientsRestartedART" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="eb20a3bb-41ef-4792-8bdc-7c5792f51eee" />
+		<property name="name" value="Enrollment on ART " />
+		<property name="description" value="It details total patients enrolled in ART" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:patientsRestartedART.xls" />
+	</bean>
+		
+	<bean id="chaiemr.common.report.patientsTBreceivedART" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="1c00047d-0c4f-477f-bee3-2b874de30ae0" />
+		<property name="name" value="TB/HIV programme " />
+		<property name="description" value="No. of  HIV positive TB patients(Adult) who have received ART during this month and year" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:patientsTBreceivedART.xls" />
+	</bean>
+		
+	<bean id="chaiemr.common.report.levelOfAdherence" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="7262d2ac-cf16-4efb-bb4e-d45b0dc7a082" />
+		<property name="name" value="Level of adherence" />
+		<property name="description" value="Patients who assessed for adherence during this month Of those assessed for adherence, level of adherence" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		
+	</bean>-->
+<!-- ===============================================
+New Added
+ -->
+	<!--  <bean id="chaiemr.common.report.newHIVPatientEnrolled" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="7262d2ac-cf16-4efb-bb4e-aaaaaaaaaaaa" />
+		<property name="name" value="Enrollment on HIV " />
+		<property name="description" value="It details total patients(Adult) enrolled under HIV Program" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:newHIVPatientEnrolled.xls" />
+	</bean>-->
+	
+
+	<!-- <bean id="chaiemr.common.report.patientOutcomeART" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="7262d2ac-cf16-4efb-bb4e-bbbbbbbbbbbb" />
+		<property name="name" value="Outcomes on ART" />
+		<property name="description" value="It details total patients(Adult) against various ART outcomes" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:patientOutcomeART.xls" />
+	</bean>-->
+	
+ <!--   <bean id="chaiemr.common.report.artDrug" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="5609a402-94b2-11e3-9ca9-93351facf9dd" />
+		<property name="name" value="Outcomes on ART" />
+		<property name="description" value="Monthly ART Drug Report" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:artDrugs.xls" />
+	</bean>-->
+    
+    
+<!--  	<bean id="chaiemr.common.report.labReport" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="7262d2ac-cf16-4efb-bb4e-ccccccccccccc" />
+		<property name="name" value="Lab Report " />
+		<property name="description" value="It details total patients gone under various tests" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:labReport.xls" />
+	</bean>-->
+	
+	<bean id="chaiemr.common.report.artAdultmonthlyReport" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="cf3709c1-92bc-426c-9dd4-6889cd4a564a" />
+		<property name="name" value="NAP MONTHLY REPORT(Adult)  " />
+		<property name="description" value="Combined report for all adult patients " />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:ART_AdultMonthlyReport.xls" />
+	</bean>
+	<bean id="chaiemr.common.report.artChildmonthlyReport" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="9a07cdc9-aa24-4985-9c5d-491f5214c158" />
+		<property name="name" value="NAP MONTHLY REPORT(Child)" />
+		<property name="description" value="Combined report for all child patients " />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+		<property name="template" value="chaiemr:ART_ChildMonthlyReport.xls" />
+	</bean>
+
+	<!--<bean id="chaiemr.common.report.drugReport" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="7262d2ac-cf16-4efb-bb4e-dddddddddddd" />
+		<property name="name" value="Drug stock out Report" />
+		<property name="description" value="It details total drugs dispensed in various categories" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+
+ </bean>-->
+<!-- <bean id="chaiemr.common.report.hivCohortAnalysis.6" class="org.openmrs.module.chaicore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="8141342d-6cde-43a7-8583-75e88d192807" />
+		<property name="name" value="HIV Cohort Analysis (6 months)" />
+		<property name="description" value="Definition of patient Attributes for HIV Cohort Analysis for a cohort period of 6 months" />
+		<property name="apps"><set><ref bean="chaiemr.app.reports" /></set></property>
+ </bean>-->
+    <!-- =========================== RDQA Reports =============================-->
+
+  <!--  <bean id="chaiemr.common.report.rdqaReport" class="org.openmrs.module.chaicore.report.HybridReportDescriptor">
+        <property name="targetUuid" value="ed1cfbf2-64c6-11e4-86ed-10c37b209d8a" />
+        <property name="name" value="RDQA Report" />
+        <property name="description" value="Report for Routine Data Quality Analysis" />
+        <property name="apps">
+            <set>
+                <ref bean="chaiemr.app.reports" />
+            </set></property>
+        <property name="template" value="chaiemr:rdqa/rdqaTemplate.xls" />
+        <property name="repeatingSection" value="sheet:1,row:11,dataset:allPatients" />
+    </bean>-->
+
+</beans>

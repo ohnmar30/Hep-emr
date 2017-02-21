@@ -1,0 +1,203 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+  <style type="text/css">
+		table.tb {
+			background-color: #c7d8a7;
+			border: 1px solid black;
+			
+		}
+		table.tb1 {
+			border: 1px solid black;
+			vertical-align: baseline;
+			text-align: left;
+			background-color: #FFFFFF;
+		}
+		table.tb1 tr th,table.tb1 tr td{
+			border: 0;
+			padding: 5px;
+		}
+		
+
+	</style>
+	<script type="text/javascript">
+		var value1;
+		jq(document).ready(function(){
+			
+			jq('#diedDate :input').prop('disabled', true);
+			jq('#transferFacility :input').prop('disabled', true);
+			jq('#transferDate :input').prop('disabled', true);
+			jq('#lastVisitDate-date :input').prop('disabled', true);
+			if ((getValue('idReason.value')) == 160034) {
+				jq('#diedDate :input').prop('disabled', false);
+				jq('#transferFacility :input').prop('disabled', true);
+				jq('#transferDate :input').prop('disabled', true);
+				jq('#lastVisitDate-date :input').prop('disabled', true);
+			}
+			else if((getValue('idReason.value')) == 159492) {
+				jq('#diedDate :input').prop('disabled', true);
+				jq('#transferFacility :input').prop('disabled', false);
+				jq('#transferDate :input').prop('disabled', false);
+				jq('#lastVisitDate-date :input').prop('disabled', true);
+			}
+			else if((getValue('idReason.value')) == 5240) {
+				jq('#diedDate :input').prop('disabled', true);
+				jq('#transferFacility :input').prop('disabled', true);
+				jq('#transferDate :input').prop('disabled', true);
+				jq('#lastVisitDate-date :input').prop('disabled', false);
+			}
+			else {
+				jq('#diedDate :input').prop('disabled', true);
+				jq('#transferFacility :input').prop('disabled', true);
+				jq('#transferDate :input').prop('disabled', true);
+				jq('#lastVisitDate-date :input').prop('disabled', true);
+			}
+
+			jq("#idReason select").change(function() {
+				if ((getValue('idReason.value')) == 160034) {
+					jq('#diedDate :input').prop('disabled', false);
+					jq('#transferFacility :input').prop('disabled', true);
+					jq('#transferDate :input').prop('disabled', true);
+					jq('#lastVisitDate-date :input').prop('disabled', true);
+				}
+				else if((getValue('idReason.value')) == 159492) {
+					jq('#diedDate :input').prop('disabled', true);
+					jq('#transferFacility :input').prop('disabled', false);
+					jq('#transferDate :input').prop('disabled', false);
+					jq('#lastVisitDate-date :input').prop('disabled', true);
+				}
+				else if((getValue('idReason.value')) == 5240) {
+					jq('#diedDate :input').prop('disabled', true);
+					jq('#transferFacility :input').prop('disabled', true);
+					jq('#transferDate :input').prop('disabled', true);
+					jq('#lastVisitDate-date :input').prop('disabled', false);
+				}
+				
+					
+				
+			});
+
+			var pbirthdate = new Date("<lookup expression="patient.birthdate" />").getTime();
+			var discontinueDate;
+
+			beforeSubmit.push(function() {
+				discontinueDate = new Date(getValue('encounter-date.value')).getTime();
+				if ((getValue('idReason.value')) == ""){
+					getField('idReason.error').html('Reason for discontinuation is Mandatory').show();
+					return false;
+				}
+				else if((getValue('idReason.value')) == 5240) {
+					lastVisitDate = new Date(getValue('lastVisitDate-date.value')).getTime();
+					if(getValue('lastVisitDate-date.value')==""){
+						getField('lastVisitDate-date.error').html('Last Visit date is Mandatory').show();
+						return false;
+					}
+					
+					if(discontinueDate &lt; lastVisitDate ){
+						getField('lastVisitDate-date.error').html('Last Visit date').show();
+					}
+					else{
+						if(new Date(getValue('encounter-date.value')).getMonth() - new Date(getValue('lastVisitDate-date.value')).getMonth()
+					       + (12 * (new Date(getValue('encounter-date.value')).getFullYear() - new Date(getValue('lastVisitDate-date.value')).getFullYear())) &lt; 3){
+							getField('lastVisitDate-date.error').html('Last Visit date, should be more than 3 months from date of Discontinuation').show();
+							return false;
+						}
+						
+						if(lastVisitDate &lt; pbirthdate){
+							getField('lastVisitDate-date.error').html('Last Visit date, should not be earlier than Birth date').show();
+							return false;
+						}
+						
+						if(discontinueDate &lt; pbirthdate){
+							getField('discontinueDate.error').html('Discontinue date, should not be earlier than Birth date').show();
+							return false;
+						}	
+					}
+				}
+				else if((getValue('idReason.value')) == 159492){
+					if (getValue('transferFacility.value') == "" || getValue('transferDate.value') == ""){
+						getField('transferDate.error').html('Transfer facilility and Date is Mandatory').show();
+						return false;
+					}			
+				}
+				else if((getValue('idReason.value')) == 160034){
+					if ((getValue('diedDate.value')) == ""){
+						getField('diedDate.error').html('Death date is Mandatory').show();
+						return false;
+					}
+				}
+				
+
+				// alert(pbirthdate+" and "+discontinueDate);
+				return true;
+			});
+		});
+	</script>
+
+	<div class="ke-form-content">
+		<fieldset>
+			<table style="background-color: #e8efdc"  align="center"  border="0" class="tb1" cellspacing="10" width="70%">
+				<tr>
+					<td>Current Date and Time:</td>
+					<td> <encounterDate id="encounter-date" showTime="true" /></td>
+				</tr>
+				
+				<tr>
+					<td>Reason *:</td>
+					<td><obs conceptId="161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  id="idReason" /></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Last day of Visit:<b>(> 3 months)</b></td>
+					<td><obs conceptId="162850AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="lastVisitDate-date"/> </td>
+				</tr>
+			
+			
+					<tr>
+						<td>If Patient Died, please provide Date of Death if Known:</td>
+						<td><obs conceptId="1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="diedDate"/></td>
+						<td></td>
+						<td></td>
+					</tr>
+				
+			
+
+			
+					<tr>
+						<td><i>(If transferred out)</i> <br/>Transfer to Facility:</td>
+						<td ><br/><obs conceptId="159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="transferFacility" labelText=" "/></td>
+						<td>Date Transferred Out<br /></td>
+						<td><br/><obs conceptId="160649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="transferDate" labelText=" "/></td>
+					</tr>
+				</table>
+			
+			<br/>
+			<hr/>
+			<br/>
+
+			Signed  at <encounterLocation default="GlobalProperty:chaiemr.defaultLocation" type="autocomplete"/>
+
+			<br/>
+
+		</fieldset>
+
+		<completeProgram programId="dfdc6d40-2f2f-463d-ba90-cc97350441a8" />
+	</div>
+
+	<div class="ke-form-footer">
+		<submit />
+	</div>
+
+</htmlform>

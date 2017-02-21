@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- ===================== Program ===================== -->
+
+	<bean id="chaiemr.art.program" class="org.openmrs.module.chaicore.program.ProgramDescriptor">
+		<property name="targetUuid" value="${metadata.program.ART}" />
+		<property name="eligibilityCalculation" value="org.openmrs.module.chaiemr.calculation.library.art.EligibleForArtProgramCalculation" />
+		<property name="defaultEnrollmentForm" ref="chaiemr.art.form.enrollment" />
+		<property name="defaultCompletionForm" ref="chaiemr.art.form.completion" />
+		
+		<property name="fragments">
+			<map>
+				<entry key="enrollment-summary" value="chaiemr:program/art/artEnrollmentSummary" />
+				<entry key="care-panel" value="chaiemr:program/art/artCarePanel" />
+				<entry key="completion-summary" value="chaiemr:program/art/artCompletionSummary" />
+			</map>
+		</property>
+		<property name="order" value="500" />
+	</bean>
+
+	<!-- ===================== Identifiers ===================== -->
+    <!-- Unique Patient Number -->
+	<bean id="chaiemr.hiv.identifier.upn" class="org.openmrs.module.chaicore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="${metadata.identifiertype.UNIQUE_PATIENT_NUMBER}" />
+		<property name="order" value="90" />
+	</bean>
+    
+    <!-- ART Enrollment -->
+	<bean id="chaiemr.art.form.enrollment" class="org.openmrs.module.chaicore.form.FormDescriptor">
+	<property name="targetUuid" value="5f1526f6-64cd-4a90-b4ad-24bb9d2d8709" />
+		<property name="apps">
+			<set>
+			<!--<ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/generic.png" />
+		<property name="htmlform" value="chaiemr:art/artEnrollment.html" />
+	</bean>
+	
+	<!-- ART Completion -->
+	<bean id="chaiemr.art.form.completion" class="org.openmrs.module.chaicore.form.FormDescriptor">
+	<property name="targetUuid" value="b55b8698-b1df-4c4a-83fb-efdcca4e6159" />
+		<property name="apps">
+			<set>
+			<!--<ref bean="chaiemr.app.registration" />
+				<ref bean="chaiemr.app.intake" /> -->
+				<ref bean="chaiemr.app.clinician" />
+				<ref bean="chaiemr.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="chaiui:forms/completion.png" />
+		<property name="htmlform" value="chaiemr:art/artDiscontinuation.html" />	
+	</bean>
+	
+
+</beans>
